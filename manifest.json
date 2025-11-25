@@ -15,22 +15,22 @@
   "content_scripts": [
     {
       "matches": ["*://*.linkedin.com/*"],
-      "js": ["scripts/utils.js", "scripts/linkedin.js"],
+      "js": ["scripts/TrackerUtils.js", "scripts/linkedin.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://*.indeed.com/*", "*://*.indeed.co.in/*"],
-      "js": ["scripts/utils.js", "scripts/indeed.js"],
+      "js": ["scripts/TrackerUtils.js", "scripts/indeed.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://internshala.com/*"],
-      "js": ["scripts/utils.js", "scripts/internshala.js"],
+      "js": ["scripts/TrackerUtils.js", "scripts/internshala.js"],
       "run_at": "document_idle"
     },
     {
       "matches": ["*://*.glassdoor.com/*", "*://*.glassdoor.co.in/*"],
-      "js": ["scripts/utils.js", "scripts/glassdoor.js"],
+      "js": ["scripts/TrackerUtils.js", "scripts/glassdoor.js"],
       "run_at": "document_idle"
     }
   ]

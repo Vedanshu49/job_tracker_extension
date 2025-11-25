@@ -16,6 +16,6 @@ document.addEventListener('click', (e) => {
             status: "Applied"
         };
 
-        Utils.saveJobToStorage(jobData);
+        TrackerUtils.saveJobToStorage(jobData);
     }
 });

@@ -3,14 +3,14 @@ let jobs = [];
 document.addEventListener('DOMContentLoaded', () => {
     loadJobs();
     document.getElementById('exportBtn').addEventListener('click', exportToCSV);
+    setupTableEventListeners();
 });
 
 function loadJobs() {
     chrome.storage.local.get(['jobs'], (result) => {
         jobs = result.jobs || [];
         
-        // MIGRATION: Ensure all jobs have an ID. 
-        // If old jobs don't have IDs, give them one now to prevent bugs.
+        // ID Migration Check
         let needsSave = false;
         jobs.forEach(job => {
             if (!job.id) {
@@ -18,7 +18,7 @@ function loadJobs() {
                 needsSave = true;
             }
         });
-
+        
         if (needsSave) saveJobs();
 
         renderTable();
@@ -28,15 +28,8 @@ function loadJobs() {
 
 function saveJobs() {
     chrome.storage.local.set({ jobs: jobs }, () => {
-        // Check for errors during save
         if (chrome.runtime.lastError) {
             console.error("Save failed:", chrome.runtime.lastError);
-            alert("Error saving data. Check console.");
-        } else {
-            console.log("Data saved successfully.");
-            // We don't need to call updateStats here anymore for the UI, 
-            // but we leave it to ensure sync.
-            updateStats();
         }
     });
 }
@@ -55,7 +48,6 @@ function renderTable() {
     jobs.forEach((job) => {
         const tr = document.createElement('tr');
         
-        // Use job.id instead of index for safer updates
         tr.innerHTML = `
             <td>
                 <a href="${job.url}" target="_blank" style="text-decoration:none;">
@@ -66,7 +58,7 @@ function renderTable() {
             <td style="font-size: 13px; color: #64748b;">${new Date(job.date).toLocaleDateString()}</td>
             <td><span class="platform-badge">${job.platform}</span></td>
             <td style="width: 160px;">
-                <select onchange="window.updateJobStatus('${job.id}', this.value)">
+                <select class="status-select" data-id="${job.id}">
                     <option value="Applied" ${job.status === 'Applied' ? 'selected' : ''}>Applied</option>
                     <option value="Interviewing" ${job.status === 'Interviewing' ? 'selected' : ''}>Interviewing</option>
                     <option value="Assignment" ${job.status === 'Assignment' ? 'selected' : ''}>Assignment</option>
@@ -75,33 +67,92 @@ function renderTable() {
                 </select>
             </td>
             <td style="width: 300px;">
-                <textarea placeholder="Add notes..." onchange="window.updateNotes('${job.id}', this.value)">${job.note || ''}</textarea>
+                <textarea class="notes-input" data-id="${job.id}" placeholder="Add notes...">${job.note || ''}</textarea>
                 ${job.status === 'Offer' ? `
                 <div class="offer-box">
                     <span class="offer-label">OFFER DETAILS</span>
-                    <input type="text" class="offer-input" placeholder="CTC, Joining Date..." 
-                           value="${job.offerDetails || ''}" 
-                           onchange="window.updateOfferDetails('${job.id}', this.value)">
+                    <input type="text" class="offer-input" data-id="${job.id}" placeholder="CTC, Joining Date..." 
+                           value="${job.offerDetails || ''}">
                 </div>
                 ` : ''}
             </td>
             <td>
-                <button class="btn btn-danger" onclick="window.deleteJob('${job.id}')">✕</button>
+                <button class="btn btn-danger delete-btn" data-id="${job.id}">✕</button>
             </td>
         `;
         tbody.appendChild(tr);
     });
 }
 
+// Event Delegation
+function setupTableEventListeners() {
+    const tbody = document.getElementById('jobTableBody');
+
+    tbody.addEventListener('change', (e) => {
+        const id = e.target.dataset.id;
+        if (!id) return;
+
+        if (e.target.classList.contains('status-select')) {
+            updateJobStatus(id, e.target.value);
+        } 
+        else if (e.target.classList.contains('notes-input')) {
+            updateNotes(id, e.target.value);
+        } 
+        else if (e.target.classList.contains('offer-input')) {
+            updateOfferDetails(id, e.target.value);
+        }
+    });
+
+    tbody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-btn')) {
+            const id = e.target.dataset.id;
+            deleteJob(id);
+        }
+    });
+}
+
+function updateJobStatus(id, newStatus) {
+    const job = jobs.find(j => j.id === id);
+    if (job) {
+        job.status = newStatus;
+        updateStats();
+        saveJobs();
+        renderTable(); 
+    }
+}
+
+function updateNotes(id, val) {
+    const job = jobs.find(j => j.id === id);
+    if (job) {
+        job.note = val;
+        saveJobs();
+    }
+}
+
+function updateOfferDetails(id, val) {
+    const job = jobs.find(j => j.id === id);
+    if (job) {
+        job.offerDetails = val;
+        saveJobs();
+    }
+}
+
+function deleteJob(id) {
+    if(confirm('Delete this application?')) {
+        jobs = jobs.filter(j => j.id !== id);
+        updateStats();
+        saveJobs();
+        renderTable(); 
+    }
+}
+
+// --- UPDATED STATS FUNCTION ---
 function updateStats() {
     document.getElementById('totalCount').innerText = jobs.length;
-    
-    // Debugging logs to verify filtering
-    const interviews = jobs.filter(j => j.status === 'Interviewing').length;
-    const offers = jobs.filter(j => j.status === 'Offer').length;
-    
-    document.getElementById('interviewCount').innerText = interviews;
-    document.getElementById('offerCount').innerText = offers;
+    document.getElementById('interviewCount').innerText = jobs.filter(j => j.status === 'Interviewing').length;
+    document.getElementById('assignmentCount').innerText = jobs.filter(j => j.status === 'Assignment').length;
+    document.getElementById('offerCount').innerText = jobs.filter(j => j.status === 'Offer').length;
+    document.getElementById('rejectedCount').innerText = jobs.filter(j => j.status === 'Rejected').length;
 }
 
 function exportToCSV() {
@@ -130,40 +181,3 @@ function exportToCSV() {
     link.click();
     document.body.removeChild(link);
 }
-
-// --- GLOBAL FUNCTIONS (Attached to Window) ---
-
-window.updateJobStatus = (id, newStatus) => {
-    const job = jobs.find(j => j.id === id);
-    if (job) {
-        job.status = newStatus;
-        updateStats(); // UPDATE UI IMMEDIATELY
-        saveJobs();
-        renderTable(); 
-    }
-};
-
-window.updateNotes = (id, val) => {
-    const job = jobs.find(j => j.id === id);
-    if (job) {
-        job.note = val;
-        saveJobs(); // Textarea doesn't need re-render or it loses focus
-    }
-};
-
-window.updateOfferDetails = (id, val) => {
-    const job = jobs.find(j => j.id === id);
-    if (job) {
-        job.offerDetails = val;
-        saveJobs();
-    }
-};
-
-window.deleteJob = (id) => {
-    if(confirm('Delete this application?')) {
-        jobs = jobs.filter(j => j.id !== id);
-        updateStats(); // Update UI immediately
-        saveJobs();
-        renderTable(); 
-    }
-};
