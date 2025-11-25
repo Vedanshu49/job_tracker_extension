@@ -2,7 +2,6 @@ console.log("Job Tracker: Indeed Module Loaded");
 
 document.addEventListener('click', (e) => {
     const target = e.target;
-    // Aggressive button detection
     const btn = target.closest('button') || 
                 target.closest('a') || 
                 target.closest('.jobsearch-IndeedApplyButton-newDesign') ||
@@ -35,13 +34,17 @@ document.addEventListener('click', (e) => {
                               document.querySelector('.jobsearch-CompanyInfoContainer');
             if (companyEl) company = companyEl.innerText.replace(/\n/g, " ").trim();
 
+            // NEW: Scrape Description
+            const desc = document.querySelector('#jobDescriptionText')?.innerText || "";
+
             const jobData = {
                 role: role,
                 company: company,
                 url: window.location.href,
                 platform: "Indeed",
                 date: new Date().toISOString(),
-                status: "Applied"
+                status: "Applied",
+                description: desc // Save description
             };
 
             TrackerUtils.saveJobToStorage(jobData);

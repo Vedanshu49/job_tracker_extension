@@ -14,6 +14,8 @@
                 <p>Manage your job search journey</p>
             </div>
             <div class="header-right">
+                <input type="file" id="importFile" accept=".csv" style="display: none;">
+                <button id="importBtn" class="btn btn-secondary">Import CSV</button>
                 <button id="exportBtn" class="btn btn-primary">Download CSV</button>
             </div>
         </header>
@@ -41,6 +43,25 @@
             </div>
         </div>
 
+        <div class="toolbar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search company or role...">
+            <select id="platformFilter" class="filter-select">
+                <option value="All">All Platforms</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Indeed">Indeed</option>
+                <option value="Internshala">Internshala</option>
+                <option value="Glassdoor">Glassdoor</option>
+            </select>
+            <select id="statusFilter" class="filter-select">
+                <option value="All">All Statuses</option>
+                <option value="Applied">Applied</option>
+                <option value="Interviewing">Interviewing</option>
+                <option value="Assignment">Assignment</option>
+                <option value="Offer">Offer</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+        </div>
+
         <div class="table-card">
             <table>
                 <thead>
@@ -57,10 +78,21 @@
                 </tbody>
             </table>
             <div id="emptyState" class="empty-state" style="display: none;">
-                No applications tracked yet. Go to LinkedIn or Indeed to start.
+                No applications tracked yet.
             </div>
         </div>
     </div>
+
+    <div id="descModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Job Description</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div id="modalBody" class="desc-text"></div>
+        </div>
+    </div>
+
     <script src="logic.js"></script>
 </body>
 </html>

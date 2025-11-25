@@ -16,13 +16,17 @@ document.addEventListener('click', (e) => {
                         document.querySelector('.link_display_like_text')?.innerText || 
                         "Unknown Company";
 
+        // NEW: Scrape Description
+        const desc = document.querySelector('.text-container')?.innerText || "";
+
         const jobData = {
             role: jobTitle.trim(),
             company: company.trim(),
             url: window.location.href,
             platform: "Internshala",
             date: new Date().toISOString(),
-            status: "Applied"
+            status: "Applied",
+            description: desc // Save description
         };
 
         TrackerUtils.saveJobToStorage(jobData);
