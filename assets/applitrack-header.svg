@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="300" fill="white"/>
+  
+  <!-- Main title -->
+  <text x="400" y="120" font-family="Arial, sans-serif" font-size="120" font-weight="bold" text-anchor="middle" fill="url(#textGradient)">
+    AppliTrack
+  </text>
+  
+  <!-- Credit -->
+  <text x="400" y="200" font-family="Arial, sans-serif" font-size="40" text-anchor="middle" fill="#666666">
+    A extension by Vedanshu Pandey
+  </text>
+  
+  <!-- Accent line -->
+  <line x1="150" y1="220" x2="650" y2="220" stroke="#6366F1" stroke-width="2" opacity="0.3"/>
+</svg>

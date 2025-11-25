@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22C55E;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bgGradient)"/>
+  
+  <!-- Briefcase body -->
+  <g>
+    <!-- Main briefcase -->
+    <rect x="140" y="160" width="232" height="140" rx="8" ry="8" fill="none" stroke="white" stroke-width="10"/>
+    
+    <!-- Briefcase handle -->
+    <path d="M 190 160 Q 190 100 256 80 Q 322 100 322 160" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+    
+    <!-- Briefcase divider/latch -->
+    <rect x="241" y="145" width="30" height="35" rx="3" ry="3" fill="white"/>
+    
+    <!-- Briefcase lock detail -->
+    <circle cx="256" cy="230" r="6" fill="white"/>
+  </g>
+  
+  <!-- Growth arrow on the right -->
+  <g>
+    <!-- Arrow shaft -->
+    <rect x="390" y="210" width="16" height="80" rx="8" fill="url(#accentGradient)"/>
+    
+    <!-- Arrow head (upward pointing) -->
+    <polygon points="398,190 378,230 418,230" fill="url(#accentGradient)"/>
+    
+    <!-- Data points dots -->
+    <circle cx="200" cy="220" r="8" fill="#06B6D4" opacity="0.8"/>
+    <circle cx="240" cy="200" r="8" fill="#22C55E" opacity="0.8"/>
+    <circle cx="280" cy="210" r="8" fill="#06B6D4" opacity="0.8"/>
+  </g>
+  
+  <!-- Corner accent -->
+  <circle cx="480" cy="32" r="40" fill="white" opacity="0.1"/>
+</svg>

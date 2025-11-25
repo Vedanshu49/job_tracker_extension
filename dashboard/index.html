@@ -3,147 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Application Manager</title>
+    <title>AppliTrack - Job Application Tracker</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../kanban/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-left">
-                <h1>My Applications</h1>
-                <p>Manage your job search journey</p>
-            </div>
-            <div class="header-right">
-                <button id="btnReminders" class="btn btn-warning">🔔 Reminders</button>
-                <button id="btnAnalytics" class="btn btn-info">📊 Analytics</button>
-                <button id="btnKanban" class="btn btn-info">📋 Kanban Board</button>
-                
-                <input type="file" id="importFile" accept=".csv" style="display: none;">
-                <button id="importBtn" class="btn btn-secondary">Import CSV</button>
-                <button id="exportBtn" class="btn btn-primary">Download CSV</button>
-            </div>
-        </header>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>AppliTrack</h1>
+            <p style="font-size: 12px; opacity: 0.8; margin: 0;">A extension by Vedanshu Pandey</p>
+        </div>
+    </div>
 
-        <div class="stats-container">
-            <div class="stat-card">
-                <span class="stat-label">Total Applied</span>
-                <span class="stat-value" id="totalCount">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Interviews</span>
-                <span class="stat-value" id="interviewCount">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Assignments</span>
-                <span class="stat-value" id="assignmentCount">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label">Offers</span>
-                <span class="stat-value" id="offerCount">0</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-label" style="color: #ef4444;">Rejected</span>
-                <span class="stat-value" id="rejectedCount" style="color: #ef4444;">0</span>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Track Your Job Journey</h2>
+            <p>Manage applications, interviews, and offers in one beautiful dashboard</p>
+        </div>
+    </section>
+
+    <!-- Stats Container -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <span class="stat-icon">📄</span>
+            <div class="stat-content">
+                <div class="stat-number" id="totalApplications">0</div>
+                <div class="stat-label">Applications</div>
             </div>
         </div>
+        <div class="stat-card">
+            <span class="stat-icon">💬</span>
+            <div class="stat-content">
+                <div class="stat-number" id="totalInterviews">0</div>
+                <div class="stat-label">Interviews</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <div class="stat-content">
+                <div class="stat-number" id="totalOffers">0</div>
+                <div class="stat-label">Offers</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">❌</span>
+            <div class="stat-content">
+                <div class="stat-number" id="totalRejected">0</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">⏳</span>
+            <div class="stat-content">
+                <div class="stat-number" id="pendingApplications">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+        </div>
+    </div>
 
-        <div class="toolbar">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search company or role...">
-            <select id="platformFilter" class="filter-select">
-                <option value="All">All Platforms</option>
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search companies...">
+        <div class="filter-group" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+            <select id="platformFilter" class="filter-select" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--surface-color); color: var(--text-color); font-family: inherit; cursor: pointer;">
+                <option value="">All Platforms</option>
                 <option value="LinkedIn">LinkedIn</option>
                 <option value="Indeed">Indeed</option>
                 <option value="Internshala">Internshala</option>
                 <option value="Glassdoor">Glassdoor</option>
             </select>
-            <select id="statusFilter" class="filter-select">
-                <option value="All">All Statuses</option>
+            <select id="statusFilter" class="filter-select" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--surface-color); color: var(--text-color); font-family: inherit; cursor: pointer;">
+                <option value="">All Status</option>
                 <option value="Applied">Applied</option>
                 <option value="Interviewing">Interviewing</option>
-                <option value="Assignment">Assignment</option>
                 <option value="Offer">Offer</option>
                 <option value="Rejected">Rejected</option>
             </select>
         </div>
+        <div class="button-group">
+            <button id="btnAnalytics" class="btn btn-primary">
+                📊 Analytics
+            </button>
+            <button id="btnKanban" class="btn btn-primary">
+                📋 Kanban
+            </button>
+            <button id="btnReminders" class="btn btn-primary">
+                🔔 Reminders
+            </button>
+            <button id="importBtn" class="btn btn-success">
+                📥 Import
+            </button>
+            <button id="exportBtn" class="btn btn-success">
+                📤 Export
+            </button>
+        </div>
+    </div>
 
-        <div id="tableView" class="table-card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Company & Role</th>
-                        <th>Date</th>
-                        <th>Platform</th>
-                        <th>Status</th>
-                        <th>Notes & Offer Details</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="jobTableBody">
-                </tbody>
-            </table>
-            <div id="emptyState" class="empty-state" style="display: none;">
-                No applications tracked yet.
+    <!-- Main Table -->
+    <div class="table-wrapper">
+        <table class="jobs-table">
+            <thead>
+                <tr>
+                    <th style="width: 28%;">Company & Position</th>
+                    <th style="width: 12%;">Applied Date</th>
+                    <th style="width: 12%;">Platform</th>
+                    <th style="width: 15%;">Status</th>
+                    <th style="width: 23%;">Notes & Details</th>
+                    <th style="width: 10%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="jobsTableBody">
+                <!-- Populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div id="analyticsContainer" class="feature-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; overflow: auto;">
+        <div class="modal-content" style="margin: 50px auto; max-width: 900px; background: var(--surface-color); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-lg);">
+            <button class="close-feature" style="float: right; font-size: 24px; background: none; border: none; cursor: pointer;">&times;</button>
+            <h2>📊 Analytics Dashboard</h2>
+            <div class="analytics-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
             </div>
         </div>
     </div>
 
-    <div id="analyticsContainer" class="feature-modal" style="display: none;">
-        <div class="feature-content">
-            <div class="feature-header">
-                <h2>Visual Analytics</h2>
-                <button class="close-feature btn btn-danger">Close</button>
-            </div>
-            <div class="charts-grid">
-                <div class="chart-box">
-                    <canvas id="platformChart"></canvas>
+    <!-- Kanban Modal -->
+    <div id="kanbanContainer" class="feature-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; overflow: auto;">
+        <div class="modal-content wide" style="margin: 50px auto; max-width: 1200px; background: var(--surface-color); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-lg);">
+            <button class="close-feature" style="float: right; font-size: 24px; background: none; border: none; cursor: pointer;">&times;</button>
+            <h2>📋 Kanban Board</h2>
+            <div id="kanbanBoard" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Reminders Modal -->
+    <div id="remindersContainer" class="feature-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; overflow: auto;">
+        <div class="modal-content" style="margin: 50px auto; max-width: 600px; background: var(--surface-color); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-lg);">
+            <button class="close-feature" style="float: right; font-size: 24px; background: none; border: none; cursor: pointer;">&times;</button>
+            <h2>🔔 Follow-up Reminders</h2>
+            <div id="remindersList" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Description Modal -->
+    <div id="descModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; overflow: auto;">
+        <div class="modal-content" style="margin: 50px auto; max-width: 600px; background: var(--surface-color); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-lg);">
+            <span class="close-modal" style="float: right; font-size: 24px; cursor: pointer; background: none; border: none;">&times;</span>
+            <h2>📝 Job Details</h2>
+            <div class="modal-body">
+                <p><strong>Company:</strong> <span id="descCompany"></span></p>
+                <p><strong>Position:</strong> <span id="descPosition"></span></p>
+                <p><strong>Platform:</strong> <span id="descPlatform"></span></p>
+                <p><strong>Applied Date:</strong> <span id="descDate"></span></p>
+                <p><strong>Status:</strong> <span id="descStatus"></span></p>
+                <p><strong>Description:</strong></p>
+                <textarea id="descText" rows="8" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;"></textarea>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button id="saveDotBtn" class="btn btn-primary">💾 Save</button>
+                    <button id="deleteBtn" class="btn btn-danger">🗑️ Delete</button>
                 </div>
-                <div class="chart-box">
-                    <canvas id="statusChart"></canvas>
-                </div>
             </div>
         </div>
     </div>
 
-    <div id="kanbanContainer" class="feature-modal" style="display: none;">
-        <div class="feature-content full-width">
-            <div class="feature-header">
-                <h2>Kanban Board</h2>
-                <button class="close-feature btn btn-danger">Close</button>
-            </div>
-            <div id="kanbanBoard" class="kanban-board">
-                </div>
-        </div>
-    </div>
+    <!-- Import Input (Hidden) -->
+    <input type="file" id="importFile" style="display: none;" accept=".csv">
 
-    <div id="remindersContainer" class="feature-modal" style="display: none;">
-        <div class="feature-content">
-            <div class="feature-header">
-                <h2>Smart Follow-ups</h2>
-                <button class="close-feature btn btn-danger">Close</button>
-            </div>
-            <p style="margin-bottom: 15px; color: #64748b;">Applications older than 7 days with no response.</p>
-            <div id="remindersList" class="reminders-list">
-                </div>
-        </div>
-    </div>
-
-    <div id="descModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Job Description</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div id="modalBody" class="desc-text"></div>
-        </div>
-    </div>
-
+    <!-- Scripts - Load in correct order -->
+    <script src="../scripts/TrackerUtils.js"></script>
     <script src="logic.js"></script>
-    
     <script src="../analytics/logic.js"></script>
     <script src="../kanban/logic.js"></script>
     <script src="../reminders/logic.js"></script>
-    <script src="../calendar/logic.js"></script>
+    <script src="../Calendar/logic.js"></script>
 </body>
 </html>

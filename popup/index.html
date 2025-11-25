@@ -3,22 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Tracker</title>
+    <meta name="description" content="AppliTrack - Quick job stats">
+    <title>AppliTrack</title>
     <style>
-        body { width: 300px; padding: 15px; font-family: sans-serif; text-align: center; }
-        .btn { 
-            background: #2563eb; color: white; border: none; padding: 10px 20px; 
-            border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px;
+        :root {
+            --primary: #6366F1;
+            --accent: #8B5CF6;
+            --secondary: #06B6D4;
+            --success: #22C55E;
+            --danger: #EF4444;
+            --bg: #F0F4F8;
+            --card: #FFFFFF;
+            --text: #1E293B;
+            --text-secondary: #64748B;
+            --border: #E2E8F0;
+            --gradient-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+            --gradient-secondary: linear-gradient(135deg, #06B6D4 0%, #22C55E 100%);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        .btn:hover { background: #1d4ed8; }
-        .stat { font-size: 14px; color: #64748b; margin-bottom: 5px; }
-        .count { font-size: 32px; font-weight: bold; color: #1e293b; margin: 5px 0 15px 0; }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0F172A;
+                --card: #1E293B;
+                --text: #F1F5F9;
+                --text-secondary: #CBD5E1;
+                --border: #334155;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 380px;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .popup-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .popup-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(30px);
+        }
+
+        .popup-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 4px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .popup-header p {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .popup-content {
+            padding: 20px 16px;
+            flex: 1;
+        }
+
+        .main-stat {
+            background: var(--card);
+            border: 2px solid var(--gradient-primary);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-md);
+            transition: all 200ms;
+        }
+
+        .main-stat:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .stat-count {
+            font-size: 48px;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
+        }
+
+        .stat-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .quick-stat {
+            background: var(--card);
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 200ms;
+        }
+
+        .quick-stat:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quick-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .quick-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .recent-applications {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .recent-applications::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .recent-applications::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .recent-app-item {
+            padding: 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recent-app-item:last-child {
+            border-bottom: none;
+        }
+
+        .recent-app-company {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .recent-app-role {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .recent-app-date {
+            font-size: 10px;
+            color: var(--text-tertiary);
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 200ms;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--card);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: #F0F4F8;
+            transform: translateY(-1px);
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 12px 0 0 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .btn-secondary {
+                background: #334155;
+                border-color: var(--primary);
+            }
+
+            .btn-secondary:hover {
+                background: #475569;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="stat">Jobs Applied</div>
-    <div class="count" id="jobCount">0</div>
-    <button id="openDash" class="btn">Open Full Dashboard ↗</button>
+    <div class="popup-container">
+        <div class="popup-header">
+            <h1>AppliTrack</h1>
+            <p>A extension by Vedanshu Pandey</p>
+        </div>
+
+        <div class="popup-content">
+            <div class="main-stat">
+                <div class="stat-label">📊 Total Applications</div>
+                <div class="stat-count" id="jobCount">0</div>
+                <div class="stat-subtitle">Your job search progress</div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="quick-stat">
+                    <div class="quick-stat-value" id="quickInterview">0</div>
+                    <div class="quick-stat-label">Interviews</div>
+                </div>
+                <div class="quick-stat">
+                    <div class="quick-stat-value" id="quickOffers">0</div>
+                    <div class="quick-stat-label">Offers</div>
+                </div>
+            </div>
+
+            <div class="recent-applications">
+                <div id="recentList" style="display: none;"></div>
+                <div id="emptyRecent" style="padding: 12px; text-align: center; color: var(--text-secondary); font-size: 12px;">
+                    No recent applications
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="openDash" class="btn btn-primary">
+                    📋 Open Dashboard
+                </button>
+                <button id="refreshBtn" class="btn btn-secondary" title="Refresh stats">
+                    🔄
+                </button>
+            </div>
+
+            <div class="footer-text">
+                Click extension icon while on job boards to auto-track applications
+            </div>
+        </div>
+    </div>
+
     <script src="logic.js"></script>
 </body>
 </html>
