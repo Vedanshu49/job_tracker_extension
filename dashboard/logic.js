@@ -3,17 +3,41 @@ let jobs = [];
 document.addEventListener('DOMContentLoaded', () => {
     loadJobs();
     
-    // Buttons
+    // --- EXISTING BUTTONS ---
     document.getElementById('exportBtn').addEventListener('click', exportToCSV);
     document.getElementById('importBtn').addEventListener('click', triggerImport);
     document.getElementById('importFile').addEventListener('change', handleFileImport);
 
-    // Filters
+    // --- FILTERS ---
     document.getElementById('searchInput').addEventListener('input', renderTable);
     document.getElementById('platformFilter').addEventListener('change', renderTable);
     document.getElementById('statusFilter').addEventListener('change', renderTable);
 
-    // Modal Close
+    // --- NEW FEATURE BUTTONS (Open Modals) ---
+    document.getElementById('btnAnalytics').addEventListener('click', () => {
+        document.getElementById('analyticsContainer').style.display = 'block';
+        if (typeof AnalyticsModule !== 'undefined') AnalyticsModule.render(jobs);
+    });
+
+    document.getElementById('btnKanban').addEventListener('click', () => {
+        document.getElementById('kanbanContainer').style.display = 'block';
+        if (typeof KanbanModule !== 'undefined') KanbanModule.render(jobs);
+    });
+
+    document.getElementById('btnReminders').addEventListener('click', () => {
+        document.getElementById('remindersContainer').style.display = 'block';
+        if (typeof RemindersModule !== 'undefined') RemindersModule.render(jobs);
+    });
+
+    // --- CLOSE MODALS (Features & Description) ---
+    document.querySelectorAll('.close-feature').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.target.closest('.feature-modal').style.display = 'none';
+            // Refresh table when closing Kanban in case drag-drop changed statuses
+            loadJobs(); 
+        });
+    });
+
     document.querySelector('.close-modal').addEventListener('click', closeDescModal);
     window.onclick = (event) => {
         const modal = document.getElementById('descModal');
@@ -86,6 +110,9 @@ function renderTable() {
         // Show "View Desc" link only if description exists
         const descLink = job.description ? `<span class="view-desc-link" data-id="${job.id}">View Desc</span>` : '';
 
+        // NEW: Generate Calendar Button HTML
+        const calendarBtn = (typeof CalendarModule !== 'undefined') ? CalendarModule.createButton(job) : '';
+
         tr.innerHTML = `
             <td>
                 <a href="${job.url}" target="_blank" style="text-decoration:none;">
@@ -104,6 +131,7 @@ function renderTable() {
                     <option value="Offer" ${job.status === 'Offer' ? 'selected' : ''}>Offer</option>
                     <option value="Rejected" ${job.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
                 </select>
+                ${calendarBtn}
             </td>
             <td style="width: 300px;">
                 <textarea class="notes-input" data-id="${job.id}" placeholder="Add notes...">${job.note || ''}</textarea>
@@ -144,18 +172,25 @@ function setupTableEventListeners() {
 
     tbody.addEventListener('click', (e) => {
         const id = e.target.dataset.id;
+        
+        // Delete
         if (e.target.classList.contains('delete-btn')) {
             deleteJob(id);
         }
-        // NEW: Handle Description Click
+        // Description
         if (e.target.classList.contains('view-desc-link')) {
             openDescModal(id);
+        }
+        // NEW: Calendar Button
+        if (e.target.classList.contains('btn-calendar')) {
+            const job = jobs.find(j => j.id === id);
+            if(job && typeof CalendarModule !== 'undefined') CalendarModule.generateICS(job);
         }
     });
 }
 
-// --- UPDATE LOGIC ---
-function updateJobStatus(id, newStatus) {
+// --- UPDATE LOGIC (Attached to window for Kanban access) ---
+window.updateJobStatus = (id, newStatus) => {
     const job = jobs.find(j => j.id === id);
     if (job) {
         job.status = newStatus;
@@ -163,7 +198,7 @@ function updateJobStatus(id, newStatus) {
         saveJobs();
         renderTable(); 
     }
-}
+};
 
 function updateNotes(id, val) {
     const job = jobs.find(j => j.id === id);
@@ -214,7 +249,6 @@ function closeDescModal() {
 
 // --- IMPORT / EXPORT LOGIC ---
 function exportToCSV() {
-    // Added Description to Export
     const headers = ['ID', 'Company', 'Role', 'Date', 'Platform', 'Link', 'Status', 'Notes', 'Offer Details', 'Description'];
     const csvContent = [
       headers.join(','),
@@ -228,7 +262,7 @@ function exportToCSV() {
         job.status,
         `"${(job.note || '').replace(/"/g, '""')}"`,
         `"${(job.offerDetails || '').replace(/"/g, '""')}"`,
-        `"${(job.description || '').replace(/"/g, '""').replace(/\n/g, ' ')}"` // Sanitize description
+        `"${(job.description || '').replace(/"/g, '""').replace(/\n/g, ' ')}"`
       ].join(','))
     ].join('\n');
 
@@ -257,14 +291,13 @@ function handleFileImport(event) {
         try {
             parseCSVAndMerge(text);
             alert('Import successful! Duplicate URLs were skipped.');
-            location.reload(); // Refresh to show data
+            location.reload(); 
         } catch (err) {
             console.error(err);
             alert('Error parsing CSV. Please ensure it matches the export format.');
         }
     };
     reader.readAsText(file);
-    // Reset input so same file can be selected again
     event.target.value = '';
 }
 
@@ -272,7 +305,6 @@ function parseCSVAndMerge(csvText) {
     const lines = csvText.split('\n');
     if (lines.length < 2) return;
 
-    // Simple CSV parser (handles quoted strings)
     const parseLine = (line) => {
         const result = [];
         let startValueIndex = 0;
@@ -298,8 +330,7 @@ function parseCSVAndMerge(csvText) {
         if (!lines[i].trim()) continue;
         
         const cols = parseLine(lines[i]);
-        // Map columns based on Export header order
-        // ID(0), Company(1), Role(2), Date(3), Platform(4), Link(5), Status(6), Notes(7), Offer(8), Desc(9)
+        // Schema: ID(0), Company(1), Role(2), Date(3), Platform(4), Link(5), Status(6), Notes(7), Offer(8), Desc(9)
         
         const job = {
             id: cols[0] || Date.now() + Math.random().toString(),

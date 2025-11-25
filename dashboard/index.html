@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Application Manager</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../kanban/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
@@ -14,6 +16,10 @@
                 <p>Manage your job search journey</p>
             </div>
             <div class="header-right">
+                <button id="btnReminders" class="btn btn-warning">🔔 Reminders</button>
+                <button id="btnAnalytics" class="btn btn-info">📊 Analytics</button>
+                <button id="btnKanban" class="btn btn-info">📋 Kanban Board</button>
+                
                 <input type="file" id="importFile" accept=".csv" style="display: none;">
                 <button id="importBtn" class="btn btn-secondary">Import CSV</button>
                 <button id="exportBtn" class="btn btn-primary">Download CSV</button>
@@ -62,7 +68,7 @@
             </select>
         </div>
 
-        <div class="table-card">
+        <div id="tableView" class="table-card">
             <table>
                 <thead>
                     <tr>
@@ -83,6 +89,46 @@
         </div>
     </div>
 
+    <div id="analyticsContainer" class="feature-modal" style="display: none;">
+        <div class="feature-content">
+            <div class="feature-header">
+                <h2>Visual Analytics</h2>
+                <button class="close-feature btn btn-danger">Close</button>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-box">
+                    <canvas id="platformChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="kanbanContainer" class="feature-modal" style="display: none;">
+        <div class="feature-content full-width">
+            <div class="feature-header">
+                <h2>Kanban Board</h2>
+                <button class="close-feature btn btn-danger">Close</button>
+            </div>
+            <div id="kanbanBoard" class="kanban-board">
+                </div>
+        </div>
+    </div>
+
+    <div id="remindersContainer" class="feature-modal" style="display: none;">
+        <div class="feature-content">
+            <div class="feature-header">
+                <h2>Smart Follow-ups</h2>
+                <button class="close-feature btn btn-danger">Close</button>
+            </div>
+            <p style="margin-bottom: 15px; color: #64748b;">Applications older than 7 days with no response.</p>
+            <div id="remindersList" class="reminders-list">
+                </div>
+        </div>
+    </div>
+
     <div id="descModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -94,5 +140,10 @@
     </div>
 
     <script src="logic.js"></script>
+    
+    <script src="../analytics/logic.js"></script>
+    <script src="../kanban/logic.js"></script>
+    <script src="../reminders/logic.js"></script>
+    <script src="../calendar/logic.js"></script>
 </body>
 </html>
