@@ -1,0 +1,131 @@
+Project Name: Job Application Tracker Extension (Manifest V3)
+1. Executive Summary
+This project is a browser extension designed to automate the tracking of job applications. It functions as a "silent observer" on recruitment websites, automatically capturing job details when a user initiates an application. It provides a centralized dashboard for the user to manage the lifecycle of their applications, from "Applied" to "Offer" or "Rejection," and allows for data portability via CSV export.
+
+2. Core Architecture
+The extension follows the Chrome Extension Manifest V3 standard. It utilizes a modular file structure to ensure performance, maintainability, and scalability.
+
+Architecture Pattern: Event-Driven / Content Injection.
+
+Storage Layer: chrome.storage.local (Client-side persistence).
+
+UI Framework: Vanilla HTML/CSS/JavaScript (No external framework dependencies).
+
+3. Component Breakdown
+A. The Configuration (manifest.json)
+The brain of the extension. It defines permissions (storage, activeTab, scripting) and uses content_scripts matching patterns to inject specific logic only into relevant domains.
+
+Action: Triggers a lightweight popup (popup/index.html).
+
+Routing: Maps specific URLs (e.g., *.linkedin.com) to specific JS files (scripts/linkedin.js).
+
+B. The "Spy" (Content Scripts)
+These scripts run in the context of the web page. They are modularized by platform to prevent cross-contamination of logic and improve memory usage.
+
+Trigger Mechanism: document.addEventListener('click', ...) looking for specific keywords ("Apply", "Easy Apply", "Apply now").
+
+Data Extraction: Uses DOM traversal (querySelector, closest) to scrape:
+
+Role Title
+
+Company Name
+
+Job URL
+
+Supported Platforms:
+
+LinkedIn: (scripts/linkedin.js)
+
+Indeed: (scripts/indeed.js)
+
+Internshala: (scripts/internshala.js)
+
+Glassdoor: (scripts/glassdoor.js)
+
+C. The "Manager" (Shared Utility)
+A utility script (scripts/utils.js) injected alongside platform scripts.
+
+Responsibility: Handles the communication with chrome.storage.local.
+
+Logic: Performs duplicate checking (based on URL) to prevent double-logging and handles the success notification (Alert/Toast).
+
+D. The User Interfaces
+The Popup (popup/):
+
+Purpose: Quick status check.
+
+Functionality: Displays total application count and provides a deep link to the full Dashboard.
+
+The Dashboard (dashboard/):
+
+Purpose: Full CRUD (Create, Read, Update, Delete) management.
+
+Functionality:
+
+Table View: Lists all tracked jobs.
+
+Status Management: Dropdown to change status (Applied → Interviewing → Assignment → Offer → Rejected).
+
+Rich Data Entry: Text areas for notes and specific fields for "Offer Details" (CTC, Joining Date).
+
+Data Portability: Client-side CSV generation and download.
+
+4. Data Schema
+The data is stored as an array of objects within chrome.storage.local.
+
+JSON
+
+[
+  {
+    "id": "generated_timestamp_or_uuid",
+    "company": "String (Scraped)",
+    "role": "String (Scraped)",
+    "url": "String (Window Location)",
+    "platform": "String (e.g., 'LinkedIn')",
+    "date": "ISO String (YYYY-MM-DD)",
+    "status": "Enum ['Applied', 'Interviewing', 'Assignment', 'Offer', 'Rejected']",
+    "note": "String (User Input)",
+    "offerDetails": "String (User Input, Conditional on status='Offer')"
+  }
+]
+5. User Journey Flow
+Acquisition: User navigates to a job board (e.g., LinkedIn) and finds a job.
+
+Trigger: User clicks the "Apply" button.
+
+Capture:
+
+The extension halts for a microsecond.
+
+Scrapes DOM elements for Company/Role.
+
+Checks storage for duplicates.
+
+Saves data to local storage.
+
+Alerts user: "Job Saved".
+
+Management:
+
+User clicks Extension Icon -> Sees count -> Clicks "Open Dashboard".
+
+Dashboard opens in a new tab.
+
+Lifecycle:
+
+User receives an interview call -> Updates status to "Interviewing".
+
+User receives an offer -> Updates status to "Offer" -> Fills in "Salary/Date".
+
+Export: User clicks "Download CSV" to backup data for personal analysis.
+
+6. Scalability & Maintenance
+The architecture is designed for easy expansion. To add a new platform (e.g., Naukri.com):
+
+Create scripts/naukri.js.
+
+Write the specific DOM selectors for that site.
+
+Add the domain match pattern to manifest.json.
+
+No changes are required in the Dashboard or Storage logic.

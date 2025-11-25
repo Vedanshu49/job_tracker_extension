@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>My Applications</h1>
+                <p>Manage your job search journey</p>
+            </div>
+            <div class="header-right">
+                <button id="exportBtn" class="btn btn-primary">Download CSV</button>
+            </div>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-label">Total Applied</span>
+                <span class="stat-value" id="totalCount">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Interviews</span>
+                <span class="stat-value" id="interviewCount">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Offers</span>
+                <span class="stat-value" id="offerCount">0</span>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company & Role</th>
+                        <th>Date</th>
+                        <th>Platform</th>
+                        <th>Status</th>
+                        <th>Notes & Offer Details</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="jobTableBody">
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                No applications tracked yet. Go to LinkedIn or Indeed to start.
+            </div>
+        </div>
+    </div>
+    <script src="logic.js"></script>
+</body>
+</html>

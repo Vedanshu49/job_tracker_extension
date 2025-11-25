@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Tracker</title>
+    <style>
+        body { width: 300px; padding: 15px; font-family: sans-serif; text-align: center; }
+        .btn { 
+            background: #2563eb; color: white; border: none; padding: 10px 20px; 
+            border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px;
+        }
+        .btn:hover { background: #1d4ed8; }
+        .stat { font-size: 14px; color: #64748b; margin-bottom: 5px; }
+        .count { font-size: 32px; font-weight: bold; color: #1e293b; margin: 5px 0 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="stat">Jobs Applied</div>
+    <div class="count" id="jobCount">0</div>
+    <button id="openDash" class="btn">Open Full Dashboard ↗</button>
+    <script src="logic.js"></script>
+</body>
+</html>

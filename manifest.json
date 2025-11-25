@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Job Application Tracker",
+  "version": "1.2",
+  "description": "Track your job applications automatically.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "action": {
+    "default_title": "Check Applications",
+    "default_popup": "popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.linkedin.com/*"],
+      "js": ["scripts/utils.js", "scripts/linkedin.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://*.indeed.com/*", "*://*.indeed.co.in/*"],
+      "js": ["scripts/utils.js", "scripts/indeed.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://internshala.com/*"],
+      "js": ["scripts/utils.js", "scripts/internshala.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://*.glassdoor.com/*", "*://*.glassdoor.co.in/*"],
+      "js": ["scripts/utils.js", "scripts/glassdoor.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
