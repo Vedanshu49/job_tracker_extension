@@ -1,25 +1,41 @@
-console.log("Job Tracker: Glassdoor Module Loaded");
+console.log("AppliTrack: Glassdoor Module Loaded");
 
 document.addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if (btn && btn.innerText.includes('Apply')) {
-        
-        const jobTitle = document.querySelector('[data-test="job-title"]')?.innerText || "Unknown Role";
-        const company = document.querySelector('[data-test="employer-name"]')?.innerText || "Unknown Company";
+    // Glassdoor mostly uses buttons, but sometimes links for external applies
+    const btn = e.target.closest('button') || e.target.closest('a');
+    
+    if (btn) {
+        const text = (btn.innerText || "").toLowerCase();
+        const aria = (btn.getAttribute('aria-label') || "").toLowerCase();
 
-        // NEW: Scrape Description (Generic selector as Glassdoor classes change often)
-        const desc = document.querySelector('[class*="JobDetails_jobDescription"]')?.innerText || "";
+        // Check for Apply keywords
+        const isApply = text.includes('apply') || 
+                        aria.includes('apply') || 
+                        text.includes('easy apply');
 
-        const jobData = {
-            role: jobTitle,
-            company: company,
-            url: window.location.href,
-            platform: "Glassdoor",
-            date: new Date().toISOString(),
-            status: "Applied",
-            description: desc // Save description
-        };
+        if (isApply) {
+            const jobTitle = document.querySelector('[data-test="job-title"]')?.innerText || 
+                             document.querySelector('div[class*="JobDetails_jobTitle"]')?.innerText ||
+                             "Unknown Role";
 
-        TrackerUtils.saveJobToStorage(jobData);
+            const company = document.querySelector('[data-test="employer-name"]')?.innerText || 
+                            document.querySelector('div[class*="JobDetails_employerName"]')?.innerText ||
+                            "Unknown Company";
+
+            // Clean up: Glassdoor often adds rating numbers to company names text
+            const cleanCompany = company.split('\n')[0].trim();
+
+            const jobData = {
+                role: jobTitle.trim(),
+                company: cleanCompany,
+                url: window.location.href,
+                platform: "Glassdoor",
+                date: new Date().toISOString(),
+                status: "Applied",
+                description: document.querySelector('[class*="JobDetails_jobDescription"]')?.innerText || ""
+            };
+
+            TrackerUtils.saveJobToStorage(jobData);
+        }
     }
-});
+}, true);
