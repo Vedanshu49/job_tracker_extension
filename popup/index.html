@@ -81,6 +81,16 @@
             position: relative;
             z-index: 1;
         }
+        
+        /* New link style for title */
+        .popup-header h1 a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .popup-header h1 a:hover {
+            opacity: 0.9;
+        }
 
         .popup-header p {
             font-size: 12px;
@@ -303,7 +313,9 @@
 <body>
     <div class="popup-container">
         <div class="popup-header">
-            <h1>AppliTrack</h1>
+            <h1>
+                <a href="https://appliitrack.vercel.app" target="_blank">AppliTrack</a>
+            </h1>
             <p>A extension by Vedanshu Pandey</p>
         </div>
 
