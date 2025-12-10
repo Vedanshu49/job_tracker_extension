@@ -1,3 +1,11 @@
 builder.py
 common check and rules for the project.txt
 Project description.txt
+setup_website.py
+generate_logo.py
+website/node_modules
+
+
+ok after all the work, here is the updated and final codes,
+
+now i have to host it on versal, once done then i will give you the link and then me will do the code changes in extension part, uning which, when a user first time downloads the extension this site gets opened so that he can read about it, and also add the link of site and the link of page where ever needed

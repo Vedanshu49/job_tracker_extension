@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="AppliTrack - Job Application Tracker Extension" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | AppliTrack</title>
+	</head>
+	<body class="bg-dark text-white font-sans min-h-screen flex flex-col">
+		
+		<nav class="sticky top-0 z-50 backdrop-blur-md bg-dark/80 border-b border-white/10">
+			<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+				<a href="/" class="flex items-center gap-2 group">
+					<img src="/logo.png" alt="AppliTrack" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+					<span class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+						AppliTrack
+					</span>
+				</a>
+
+				<div class="hidden md:flex gap-8 text-sm font-medium text-gray-300">
+					<a href="/guide" class="hover:text-primary transition-colors">How to Use</a>
+					<a href="/about" class="hover:text-primary transition-colors">Features</a>
+					<a href="/privacy" class="hover:text-primary transition-colors">Privacy</a>
+				</div>
+
+				<a href="/download" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-bold transition-all border border-white/10 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+					Get Extension
+				</a>
+			</div>
+		</nav>
+
+		<div class="flex-1">
+			<slot />
+		</div>
+
+		<footer class="border-t border-white/10 py-12 mt-20 bg-card/30">
+			<div class="max-w-7xl mx-auto px-6 text-center">
+				<p class="text-gray-500 mb-4">
+					Built by <a href="/developer" class="text-primary hover:underline font-bold">Vedanshu Pandey</a>
+				</p>
+				<div class="flex justify-center gap-6 text-sm text-gray-600">
+					<a href="/privacy" class="hover:text-gray-400 transition-colors">Privacy Policy</a>
+					<a href="https://github.com/vedanshu49/job_tracker_extension" class="hover:text-gray-400 transition-colors">GitHub</a>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

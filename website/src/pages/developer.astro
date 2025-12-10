@@ -1,0 +1,48 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About the Developer">
+	<main class="max-w-2xl mx-auto px-6 py-20 text-center">
+		<div class="w-32 h-32 bg-gradient-to-br from-primary to-accent rounded-full mx-auto mb-8 flex items-center justify-center text-5xl shadow-2xl shadow-primary/20 animate-fade-in border-4 border-white/10">
+			👨‍💻
+		</div>
+		
+		<h1 class="text-4xl font-bold mb-4 text-white">Vedanshu Pandey</h1>
+		<p class="text-xl text-primary font-medium mb-8">Student & Passionate Coder</p>
+		
+		<div class="bg-card border border-white/5 rounded-2xl p-8 mb-10 text-left relative overflow-hidden">
+			<div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent"></div>
+			<p class="text-gray-300 leading-relaxed">
+				I built AppliTrack to solve the chaos of modern job hunting. 
+				My goal was to create a tool that is <span class="text-white font-bold">privacy-focused</span>, 
+				<span class="text-white font-bold">beautiful</span>, and strictly 
+				<span class="text-white font-bold">functional</span> without the bloat.
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			
+			<a href="https://github.com/vedanshu49" target="_blank" class="p-4 bg-card border border-white/5 rounded-xl hover:border-white transition-all group hover:-translate-y-1 flex items-center gap-4">
+				<img src="/github.png" alt="GitHub" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+				<span class="font-bold text-white group-hover:text-gray-300 transition-colors">GitHub</span>
+			</a>
+
+			<a href="https://www.linkedin.com/in/vedanshu-pandey-221a38340" target="_blank" class="p-4 bg-card border border-white/5 rounded-xl hover:border-[#0077b5] transition-all group hover:-translate-y-1 flex items-center gap-4">
+				<img src="/linkedin.png" alt="LinkedIn" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+				<span class="font-bold text-white group-hover:text-[#0077b5] transition-colors">LinkedIn</span>
+			</a>
+
+			<a href="https://www.instagram.com/developwithvedanshu" target="_blank" class="p-4 bg-card border border-white/5 rounded-xl hover:border-[#E1306C] transition-all group hover:-translate-y-1 flex items-center gap-4">
+				<img src="/instagram.png" alt="Instagram" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+				<span class="font-bold text-white group-hover:text-[#E1306C] transition-colors">Instagram</span>
+			</a>
+
+			<a href="mailto:pandeyvedashu@gmail.com" class="p-4 bg-card border border-white/5 rounded-xl hover:border-success transition-all group hover:-translate-y-1 flex items-center gap-4">
+				<img src="/email.png" alt="Email" class="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+				<span class="font-bold text-white group-hover:text-success transition-colors">Email</span>
+			</a>
+
+		</div>
+	</main>
+</Layout>

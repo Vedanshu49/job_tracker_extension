@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.jsx';
+
+const title = "Welcome to AppliTrack";
+---
+
+<Layout title={title}>
+	<main class="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center">
+		
+		<div class="mb-16 animate-fade-in max-w-3xl">
+			<div class="mb-6 inline-block p-3 rounded-2xl bg-white/5 border border-white/10">
+				<img src="/logo.png" alt="Logo" class="w-16 h-16 object-contain mx-auto" />
+			</div>
+			
+			<h1 class="text-6xl font-extrabold text-white mb-6 tracking-tight">
+				Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">AppliTrack</span>
+			</h1>
+			
+			<p class="text-xl text-gray-400 mb-10 leading-relaxed">
+				The privacy-focused, automated job application tracker designed to help you organize your search without the spreadsheet chaos.
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full px-4">
+			
+			<Card 
+				href="/about"
+				title="About Extension"
+				description="Explore features like Kanban, Analytics, and auto-tracking."
+				icon="🚀"
+				client:load
+			/>
+
+			<Card 
+				href="/guide"
+				title="How to Use"
+				description="Watch the tutorial video and read the quick start guide."
+				icon="📖"
+				client:load
+			/>
+
+			<Card 
+				href="/privacy"
+				title="Privacy Policy"
+				description="We store data locally. Read how we protect your privacy."
+				icon="🔒"
+				client:load
+			/>
+
+			<Card 
+				href="/developer"
+				title="About Developer"
+				description="Meet Vedanshu Pandey, the creator behind the code."
+				icon="👨‍💻"
+				client:load
+			/>
+
+			<Card 
+				href="https://github.com/vedanshu49/job_tracker_extension"
+				title="Source Code"
+				description="View the project repository on GitHub."
+				icon="💻"
+				client:load
+			/>
+
+			<Card 
+				href="/download" 
+				title="Download"
+				description="Get AppliTrack for Chrome, Edge, Firefox, or Opera."
+				icon="⬇️"
+				client:load
+			/>
+			
+		</div>
+	</main>
+</Layout>
