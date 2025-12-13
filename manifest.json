@@ -18,12 +18,22 @@
       "strict_min_version": "142.0"
     }
   },
+  "icons": {
+    "16": "assets/logo.png",
+    "48": "assets/logo.png",
+    "128": "assets/logo.png"
+  },
   "background": {
     "service_worker": "scripts/background.js"
   },
   "action": {
     "default_title": "AppliTrack - Track Job Applications",
-    "default_popup": "popup/index.html"
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "assets/logo.png",
+      "48": "assets/logo.png",
+      "128": "assets/logo.png"
+    }
   },
   "content_scripts": [
     {
