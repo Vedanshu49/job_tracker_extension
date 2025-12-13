@@ -15,30 +15,94 @@ if (!window.AnalyticsModule) {
             const statuses = {};
             jobs.forEach(j => statuses[j.status] = (statuses[j.status] || 0) + 1);
 
-            // Clear container
-            container.innerHTML = '';
+            // Clear container safely
+            container.textContent = '';
 
-            // Create Platform Chart HTML
-            const platformMax = Math.max(...Object.values(platforms), 1);
-            const platformHTML = `
-                <div style="background: var(--card-color); padding: 20px; border-radius: 12px; box-shadow: var(--shadow-md);">
-                    <h3 style="margin-bottom: 15px; color: var(--text-color);">📊 Applications by Platform</h3>
-                    ${Object.entries(platforms).map(([platform, count]) => `
-                        <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                                <span style="font-size: 13px; font-weight: 600; color: var(--text-color);">${platform}</span>
-                                <span style="font-size: 13px; font-weight: 700; color: var(--primary-color);">${count}</span>
-                            </div>
-                            <div style="width: 100%; height: 20px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
-                                <div style="height: 100%; background: linear-gradient(90deg, #6366F1, #8B5CF6); width: ${(count/platformMax)*100}%; transition: width 300ms;"></div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+            // --- Helper to create Chart Card ---
+            const createChartCard = (titleText, dataObj, colorMap = null) => {
+                const card = document.createElement('div');
+                Object.assign(card.style, {
+                    background: 'var(--card-color)',
+                    padding: '20px',
+                    borderRadius: '12px',
+                    boxShadow: 'var(--shadow-md)'
+                });
 
-            // Create Status Chart HTML
-            const statusMax = Math.max(...Object.values(statuses), 1);
+                const title = document.createElement('h3');
+                title.style.marginBottom = '15px';
+                title.style.color = 'var(--text-color)';
+                title.textContent = titleText;
+                card.appendChild(title);
+
+                const maxVal = Math.max(...Object.values(dataObj), 1);
+
+                Object.entries(dataObj).forEach(([label, count]) => {
+                    const row = document.createElement('div');
+                    row.style.marginBottom = '12px';
+
+                    const header = document.createElement('div');
+                    Object.assign(header.style, {
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '4px'
+                    });
+
+                    const labelSpan = document.createElement('span');
+                    Object.assign(labelSpan.style, {
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        color: 'var(--text-color)'
+                    });
+                    labelSpan.textContent = label;
+
+                    const countSpan = document.createElement('span');
+                    Object.assign(countSpan.style, {
+                        fontSize: '13px',
+                        fontWeight: '700'
+                    });
+                    // Use specific color if map provided, else primary
+                    countSpan.style.color = colorMap ? (colorMap[label] || '#6366F1') : 'var(--primary-color)';
+                    countSpan.textContent = count;
+
+                    header.appendChild(labelSpan);
+                    header.appendChild(countSpan);
+
+                    const barBg = document.createElement('div');
+                    Object.assign(barBg.style, {
+                        width: '100%',
+                        height: '20px',
+                        background: 'var(--border-color)',
+                        borderRadius: '4px',
+                        overflow: 'hidden'
+                    });
+
+                    const barFill = document.createElement('div');
+                    Object.assign(barFill.style, {
+                        height: '100%',
+                        width: `${(count / maxVal) * 100}%`,
+                        transition: 'width 300ms'
+                    });
+                    
+                    if (colorMap) {
+                        barFill.style.background = colorMap[label] || '#6366F1';
+                    } else {
+                        barFill.style.background = 'linear-gradient(90deg, #6366F1, #8B5CF6)';
+                    }
+
+                    barBg.appendChild(barFill);
+                    row.appendChild(header);
+                    row.appendChild(barBg);
+                    card.appendChild(row);
+                });
+
+                return card;
+            };
+
+            // Platform Chart
+            const platformCard = createChartCard('📊 Applications by Platform', platforms);
+            container.appendChild(platformCard);
+
+            // Status Chart
             const statusColors = {
                 'Applied': '#3B82F6',
                 'Interviewing': '#F59E0B',
@@ -46,25 +110,8 @@ if (!window.AnalyticsModule) {
                 'Offer': '#10B981',
                 'Rejected': '#EF4444'
             };
-            
-            const statusHTML = `
-                <div style="background: var(--card-color); padding: 20px; border-radius: 12px; box-shadow: var(--shadow-md);">
-                    <h3 style="margin-bottom: 15px; color: var(--text-color);">📈 Applications by Status</h3>
-                    ${Object.entries(statuses).map(([status, count]) => `
-                        <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                                <span style="font-size: 13px; font-weight: 600; color: var(--text-color);">${status}</span>
-                                <span style="font-size: 13px; font-weight: 700; color: ${statusColors[status] || '#6366F1'};">${count}</span>
-                            </div>
-                            <div style="width: 100%; height: 20px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
-                                <div style="height: 100%; background: ${statusColors[status] || '#6366F1'}; width: ${(count/statusMax)*100}%; transition: width 300ms;"></div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-
-            container.innerHTML = platformHTML + statusHTML;
+            const statusCard = createChartCard('📈 Applications by Status', statuses, statusColors);
+            container.appendChild(statusCard);
         }
     };
 }

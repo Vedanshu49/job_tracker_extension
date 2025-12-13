@@ -106,14 +106,14 @@ function saveJobs() {
     });
 }
 
-// --- RENDERING WITH FILTERS ---
+// --- RENDERING WITH FILTERS (SECURE VERSION) ---
 function renderTable() {
     const tbody = document.getElementById('jobsTableBody');
     if (!tbody) {
         console.error("jobsTableBody element not found");
         return;
     }
-    tbody.innerHTML = '';
+    tbody.textContent = ''; // Safe clear
 
     // Get Filter Values
     const searchInput = document.getElementById('searchInput');
@@ -136,57 +136,143 @@ function renderTable() {
 
     // Show empty state if no jobs
     if (filteredJobs.length === 0) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 6;
+        Object.assign(td.style, {
+            textAlign: 'center',
+            padding: '40px',
+            color: '#64748b'
+        });
+        
         if (jobs.length > 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: #64748b;">No jobs match your filters.</td></tr>';
+            td.textContent = 'No jobs match your filters.';
         } else {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px; color: #64748b;">No applications tracked yet. Start by visiting job boards to auto-track!</td></tr>';
+            td.textContent = 'No applications tracked yet. Start by visiting job boards to auto-track!';
         }
+        tr.appendChild(td);
+        tbody.appendChild(tr);
         return;
     }
 
     filteredJobs.forEach((job) => {
         const tr = document.createElement('tr');
+
+        // 1. Company & Position
+        const tdCompany = document.createElement('td');
+        tdCompany.className = 'td-company-position';
         
-        // Show "View Desc" link only if description exists
-        const descLink = job.description ? `<span class="view-desc-link" data-id="${job.id}">View Desc</span>` : '';
+        const aRole = document.createElement('a');
+        aRole.href = job.url;
+        aRole.target = '_blank';
+        aRole.style.textDecoration = 'none';
+        
+        const roleSpan = document.createElement('span');
+        roleSpan.className = 'role-text';
+        roleSpan.textContent = job.role;
+        aRole.appendChild(roleSpan);
+        tdCompany.appendChild(aRole);
 
-        // NEW: Generate Calendar Button HTML
-        const calendarBtn = (typeof CalendarModule !== 'undefined') ? CalendarModule.createButton(job) : '';
+        const compSpan = document.createElement('span');
+        compSpan.className = 'company-text';
+        compSpan.textContent = job.company;
+        tdCompany.appendChild(compSpan);
 
-        tr.innerHTML = `
-            <td class="td-company-position">
-                <a href="${job.url}" target="_blank" style="text-decoration:none;">
-                    <span class="role-text">${job.role}</span>
-                </a>
-                <span class="company-text">${job.company}</span>
-                ${descLink}
-            </td>
-            <td class="td-date">${new Date(job.date).toLocaleDateString()}</td>
-            <td class="td-platform"><span class="platform-badge">${job.platform}</span></td>
-            <td class="td-status">
-                <select class="status-select" data-id="${job.id}">
-                    <option value="Applied" ${job.status === 'Applied' ? 'selected' : ''}>Applied</option>
-                    <option value="Interviewing" ${job.status === 'Interviewing' ? 'selected' : ''}>Interviewing</option>
-                    <option value="Assignment" ${job.status === 'Assignment' ? 'selected' : ''}>Assignment</option>
-                    <option value="Offer" ${job.status === 'Offer' ? 'selected' : ''}>Offer</option>
-                    <option value="Rejected" ${job.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
-                </select>
-                ${calendarBtn}
-            </td>
-            <td class="td-notes">
-                <textarea class="notes-input" data-id="${job.id}" placeholder="Add notes...">${job.note || ''}</textarea>
-                ${job.status === 'Offer' ? `
-                <div class="offer-box">
-                    <span class="offer-label">OFFER DETAILS</span>
-                    <input type="text" class="offer-input" data-id="${job.id}" placeholder="CTC, Joining Date..." 
-                           value="${job.offerDetails || ''}">
-                </div>
-                ` : ''}
-            </td>
-            <td class="td-actions">
-                <button class="btn btn-danger delete-btn" data-id="${job.id}">✕</button>
-            </td>
-        `;
+        if (job.description) {
+            const descSpan = document.createElement('span');
+            descSpan.className = 'view-desc-link';
+            descSpan.dataset.id = job.id;
+            descSpan.textContent = 'View Desc';
+            tdCompany.appendChild(descSpan);
+        }
+        tr.appendChild(tdCompany);
+
+        // 2. Date
+        const tdDate = document.createElement('td');
+        tdDate.className = 'td-date';
+        tdDate.textContent = new Date(job.date).toLocaleDateString();
+        tr.appendChild(tdDate);
+
+        // 3. Platform
+        const tdPlatform = document.createElement('td');
+        tdPlatform.className = 'td-platform';
+        const pBadge = document.createElement('span');
+        pBadge.className = 'platform-badge';
+        pBadge.textContent = job.platform;
+        tdPlatform.appendChild(pBadge);
+        tr.appendChild(tdPlatform);
+
+        // 4. Status (Select)
+        const tdStatus = document.createElement('td');
+        tdStatus.className = 'td-status';
+        
+        const select = document.createElement('select');
+        select.className = 'status-select';
+        select.dataset.id = job.id;
+        
+        ['Applied', 'Interviewing', 'Assignment', 'Offer', 'Rejected'].forEach(st => {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = st;
+            if (job.status === st) opt.selected = true;
+            select.appendChild(opt);
+        });
+        tdStatus.appendChild(select);
+
+        // Calendar Button (UPDATED to SAFE APPEND)
+        if (typeof CalendarModule !== 'undefined') {
+            const btnElement = CalendarModule.createButton(job);
+            if (btnElement) {
+                // Wrap in a div if you want styling similar to previous HTML structure
+                const btnContainer = document.createElement('div');
+                btnContainer.appendChild(btnElement);
+                tdStatus.appendChild(btnContainer);
+            }
+        }
+        tr.appendChild(tdStatus);
+
+        // 5. Notes
+        const tdNotes = document.createElement('td');
+        tdNotes.className = 'td-notes';
+        
+        const textarea = document.createElement('textarea');
+        textarea.className = 'notes-input';
+        textarea.dataset.id = job.id;
+        textarea.placeholder = 'Add notes...';
+        textarea.value = job.note || '';
+        tdNotes.appendChild(textarea);
+
+        if (job.status === 'Offer') {
+            const offerBox = document.createElement('div');
+            offerBox.className = 'offer-box';
+            
+            const label = document.createElement('span');
+            label.className = 'offer-label';
+            label.textContent = 'OFFER DETAILS';
+            offerBox.appendChild(label);
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'offer-input';
+            input.dataset.id = job.id;
+            input.placeholder = 'CTC, Joining Date...';
+            input.value = job.offerDetails || '';
+            offerBox.appendChild(input);
+            
+            tdNotes.appendChild(offerBox);
+        }
+        tr.appendChild(tdNotes);
+
+        // 6. Actions
+        const tdActions = document.createElement('td');
+        tdActions.className = 'td-actions';
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger delete-btn';
+        delBtn.dataset.id = job.id;
+        delBtn.textContent = '✕';
+        tdActions.appendChild(delBtn);
+        tr.appendChild(tdActions);
+
         tbody.appendChild(tr);
     });
 }
@@ -226,8 +312,12 @@ function setupTableEventListeners() {
             openDescModal(id);
         }
         // NEW: Calendar Button
-        if (e.target.classList.contains('btn-calendar')) {
-            const job = jobs.find(j => j.id === id);
+        // Use closest in case user clicks icon inside button
+        const calBtn = e.target.closest('.btn-calendar');
+        if (calBtn) {
+            // Get ID from the button itself (not necessarily row id if event bubbled weirdly)
+            const btnId = calBtn.dataset.id;
+            const job = jobs.find(j => j.id === btnId);
             if(job && typeof CalendarModule !== 'undefined') CalendarModule.generateICS(job);
         }
     });

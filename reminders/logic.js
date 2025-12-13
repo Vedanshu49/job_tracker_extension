@@ -6,7 +6,7 @@ if (!window.RemindersModule) {
                 console.error("remindersList element not found");
                 return;
             }
-            list.innerHTML = '';
+            list.textContent = ''; // Safe clear
 
             const now = new Date();
             const sevenDaysAgo = new Date(now.setDate(now.getDate() - 7));
@@ -16,7 +16,14 @@ if (!window.RemindersModule) {
             });
 
             if (staleJobs.length === 0) {
-                list.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">No follow-ups needed! Great job.</div>';
+                const emptyDiv = document.createElement('div');
+                Object.assign(emptyDiv.style, {
+                    textAlign: 'center',
+                    padding: '20px',
+                    color: '#64748b'
+                });
+                emptyDiv.textContent = 'No follow-ups needed! Great job.';
+                list.appendChild(emptyDiv);
                 return;
             }
 
@@ -27,13 +34,26 @@ if (!window.RemindersModule) {
 
                 const item = document.createElement('div');
                 item.className = 'reminder-item';
-                item.innerHTML = `
-                    <div class="reminder-info">
-                        <h4>${job.role} @ ${job.company}</h4>
-                        <p>Applied on: ${new Date(job.date).toLocaleDateString()}</p>
-                    </div>
-                    <a href="${mailto}" class="btn-email">Send Email</a>
-                `;
+
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'reminder-info';
+
+                const h4 = document.createElement('h4');
+                h4.textContent = `${job.role} @ ${job.company}`;
+                
+                const p = document.createElement('p');
+                p.textContent = `Applied on: ${new Date(job.date).toLocaleDateString()}`;
+
+                infoDiv.appendChild(h4);
+                infoDiv.appendChild(p);
+
+                const btn = document.createElement('a');
+                btn.href = mailto;
+                btn.className = 'btn-email';
+                btn.textContent = 'Send Email';
+
+                item.appendChild(infoDiv);
+                item.appendChild(btn);
                 list.appendChild(item);
             });
         }

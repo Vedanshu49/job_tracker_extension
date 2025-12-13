@@ -59,15 +59,34 @@ function renderRecentApplications(jobs) {
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 5);
     
-    recentList.innerHTML = recent.map(job => `
-        <div class="recent-app-item">
-            <div>
-                <div class="recent-app-company">${job.company || 'Unknown'}</div>
-                <div class="recent-app-role">${job.role || 'No role'}</div>
-            </div>
-            <div class="recent-app-date">${formatDate(job.date)}</div>
-        </div>
-    `).join('');
+    // Clear list safely
+    recentList.textContent = '';
+    
+    recent.forEach(job => {
+        const item = document.createElement('div');
+        item.className = 'recent-app-item';
+
+        const infoDiv = document.createElement('div');
+        
+        const companyDiv = document.createElement('div');
+        companyDiv.className = 'recent-app-company';
+        companyDiv.textContent = job.company || 'Unknown';
+        
+        const roleDiv = document.createElement('div');
+        roleDiv.className = 'recent-app-role';
+        roleDiv.textContent = job.role || 'No role';
+        
+        infoDiv.appendChild(companyDiv);
+        infoDiv.appendChild(roleDiv);
+
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'recent-app-date';
+        dateDiv.textContent = formatDate(job.date);
+
+        item.appendChild(infoDiv);
+        item.appendChild(dateDiv);
+        recentList.appendChild(item);
+    });
     
     recentList.style.display = 'block';
     emptyRecent.style.display = 'none';

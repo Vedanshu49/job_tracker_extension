@@ -2,15 +2,19 @@ if (!window.CalendarModule) {
     window.CalendarModule = {
         createButton: (job) => {
             // Only show for Interviewing status
-            if (job.status !== 'Interviewing') return '';
+            if (job.status !== 'Interviewing') return null;
             
-            // We return a string HTML for the button to be injected into the table
-            // We use a unique class to attach listener later
-            return `<button class="btn-calendar" data-id="${job.id}">📅 Add to Calendar</button>`;
+            // Create DOM Element instead of string
+            const btn = document.createElement('button');
+            btn.className = 'btn-calendar';
+            btn.dataset.id = job.id;
+            btn.textContent = '📅 Add to Calendar';
+            
+            return btn;
         },
 
         generateICS: (job) => {
-            // Create a simple event for tomorrow at 10 AM (User handles specific time)
+            // Create a simple event for tomorrow at 10 AM
             const now = new Date();
             const tomorrow = new Date(now);
             tomorrow.setDate(tomorrow.getDate() + 1);

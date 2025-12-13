@@ -6,14 +6,25 @@ if (!window.KanbanModule) {
                 console.error("kanbanBoard element not found");
                 return;
             }
-            board.innerHTML = '';
+            board.textContent = ''; // Safe clear
 
             const columns = ['Applied', 'Interviewing', 'Assignment', 'Offer', 'Rejected'];
 
             columns.forEach(status => {
+                const count = jobs.filter(j => j.status === status).length;
+
                 const col = document.createElement('div');
                 col.className = 'kanban-column';
-                col.innerHTML = `<h3>${status} <span style="font-weight:normal; font-size:12px">(${jobs.filter(j => j.status === status).length})</span></h3>`;
+                
+                // Header
+                const h3 = document.createElement('h3');
+                h3.textContent = status + ' ';
+                const countSpan = document.createElement('span');
+                countSpan.style.fontWeight = 'normal';
+                countSpan.style.fontSize = '12px';
+                countSpan.textContent = `(${count})`;
+                h3.appendChild(countSpan);
+                col.appendChild(h3);
                 
                 // Drop Zone Logic
                 col.ondragover = (e) => e.preventDefault();
@@ -24,10 +35,18 @@ if (!window.KanbanModule) {
                     const card = document.createElement('div');
                     card.className = 'kanban-card';
                     card.draggable = true;
-                    card.innerHTML = `
-                        <span class="k-role">${job.role}</span>
-                        <span class="k-company">${job.company}</span>
-                    `;
+                    
+                    const roleSpan = document.createElement('span');
+                    roleSpan.className = 'k-role';
+                    roleSpan.textContent = job.role;
+                    
+                    const compSpan = document.createElement('span');
+                    compSpan.className = 'k-company';
+                    compSpan.textContent = job.company;
+
+                    card.appendChild(roleSpan);
+                    card.appendChild(compSpan);
+                    
                     card.ondragstart = (e) => e.dataTransfer.setData('text/plain', job.id);
                     col.appendChild(card);
                 });
