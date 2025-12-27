@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AppliTrack",
-  "version": "2.0.3",
+  "version": "2.3.1",
   "description": "Auto-track job applications on LinkedIn, Indeed & more. Features Kanban board, analytics, and smart reminders.",
   "homepage_url": "https://appliitrack.vercel.app",
   "permissions": [
@@ -27,8 +27,7 @@
     "128": "assets/logo128.png"
   },
   "background": {
-    "service_worker": "scripts/background.js",
-    "scripts": ["scripts/background.js"]
+    "service_worker": "scripts/background.js"
   },
   "action": {
     "default_title": "AppliTrack - Track Job Applications",

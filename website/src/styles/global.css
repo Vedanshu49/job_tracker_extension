@@ -2,25 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Scrollbar to match AppliTrack Extension */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #0F172A;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-dark text-white antialiased;
+  }
+
+  /* Selection Color */
+  ::selection {
+    @apply bg-primary/30 text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent;
+  }
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0F172A; /* dark */
+    background: #0F172A;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #334155; /* slate-700 */
+    background: #334155;
     border-radius: 5px;
+    border: 2px solid #0F172A; /* Creates padding effect */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #6366F1; /* primary */
-}
-
-body {
-    background-color: #0F172A;
-    color: white;
+    background: #475569;
 }

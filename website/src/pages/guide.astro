@@ -1,56 +1,80 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const title = "How to Use AppliTrack";
 ---
 
-<Layout title="How to Use">
-	<main class="max-w-4xl mx-auto px-6 py-20">
-		<h1 class="text-5xl font-bold mb-8 text-white">Getting Started</h1>
-		
-		<div class="aspect-video w-full bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10 mb-16">
-			<iframe 
-				class="w-full h-full"
-				src="https://www.youtube.com/embed/wqclReVog0Q" 
-				title="AppliTrack Tutorial"
-				frameborder="0" 
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-				allowfullscreen>
-			</iframe>
-		</div>
+<Layout title={title}>
+    <main class="pt-32 pb-20 max-w-5xl mx-auto px-6">
+        
+        <div class="text-center mb-20">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">Getting Started</h1>
+            <p class="text-xl text-gray-400">Zero-configuration setup. Just browse and apply.</p>
+        </div>
 
-		<div class="grid md:grid-cols-2 gap-12">
-			<div class="space-y-6">
-				<div class="flex gap-4">
-					<span class="flex-shrink-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shadow-lg shadow-primary/30">1</span>
-					<div>
-						<h3 class="text-xl font-bold mb-2 text-white">Install & Pin</h3>
-						<p class="text-gray-400">Add AppliTrack to your browser and pin it to your toolbar for easy access.</p>
-					</div>
-				</div>
-				<div class="flex gap-4">
-					<span class="flex-shrink-0 w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-white shadow-lg shadow-secondary/30">2</span>
-					<div>
-						<h3 class="text-xl font-bold mb-2 text-white">Apply on LinkedIn/Indeed</h3>
-						<p class="text-gray-400">Just click "Apply" on any supported job board. AppliTrack auto-detects and saves the job.</p>
-					</div>
-				</div>
-			</div>
-			
-			<div class="space-y-6">
-				<div class="flex gap-4">
-					<span class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-white shadow-lg shadow-accent/30">3</span>
-					<div>
-						<h3 class="text-xl font-bold mb-2 text-white">Manage in Dashboard</h3>
-						<p class="text-gray-400">Open the dashboard to drag-and-drop jobs in Kanban view or view analytics.</p>
-					</div>
-				</div>
-				<div class="flex gap-4">
-					<span class="flex-shrink-0 w-8 h-8 rounded-full bg-success flex items-center justify-center font-bold text-white shadow-lg shadow-success/30">4</span>
-					<div>
-						<h3 class="text-xl font-bold mb-2 text-white">Track & Succeed</h3>
-						<p class="text-gray-400">Set reminders for follow-ups and export your data whenever you need it.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+        <div class="flex flex-col md:flex-row items-center gap-12 mb-24">
+            <div class="flex-1 space-y-4">
+                <div class="text-secondary font-bold tracking-wider uppercase text-sm">Step 01</div>
+                <h2 class="text-3xl font-bold text-white">Browse & Apply</h2>
+                <p class="text-gray-400 leading-relaxed">
+                    Navigate to LinkedIn, Indeed, Glassdoor, or Internshala. AppliTrack's background script automatically detects when you click an <strong>"Apply"</strong> or <strong>"Easy Apply"</strong> button.
+                </p>
+                <p class="text-gray-500 text-sm italic">
+                    *Tip: It even works on search result pages!
+                </p>
+            </div>
+            <div class="flex-1 bg-[#1E293B] p-8 rounded-2xl border border-white/10 aspect-video flex items-center justify-center relative overflow-hidden">
+                <div class="w-3/4 bg-dark rounded-lg p-4 border border-white/5 shadow-2xl">
+                    <div class="h-4 w-1/2 bg-white/20 rounded mb-4"></div>
+                    <div class="h-10 w-32 bg-primary rounded flex items-center justify-center text-white font-bold text-sm cursor-pointer hover:scale-105 transition-transform">
+                        Easy Apply
+                    </div>
+                </div>
+                <div class="absolute bottom-10 right-1/3">
+                    <svg class="w-8 h-8 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2l12 11.2-5.8.5 3.1 7.3-2 1-3.1-7.4-4.5 4V2z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row-reverse items-center gap-12 mb-24">
+            <div class="flex-1 space-y-4">
+                <div class="text-primary font-bold tracking-wider uppercase text-sm">Step 02</div>
+                <h2 class="text-3xl font-bold text-white">Manage in Kanban</h2>
+                <p class="text-gray-400 leading-relaxed">
+                    Open the extension popup to see your new application in the <strong>"Applied"</strong> column. Drag and drop cards as you progress to "Interviewing" or "Offer".
+                </p>
+            </div>
+            <div class="flex-1 bg-[#1E293B] p-8 rounded-2xl border border-white/10 aspect-video flex items-center justify-center">
+                <div class="flex gap-2 w-full h-32">
+                    <div class="flex-1 bg-dark/50 rounded border border-white/5 p-2">
+                        <div class="w-full bg-card p-2 rounded mb-2 border-l-2 border-primary text-xs text-gray-400">Software Engineer</div>
+                    </div>
+                    <div class="flex-1 bg-dark/50 rounded border border-white/5 p-2">
+                        <div class="w-full h-full border-2 border-dashed border-gray-700 rounded flex items-center justify-center text-gray-600 text-xs">Drop Here</div>
+                    </div>
+                    <div class="flex-1 bg-dark/50 rounded border border-white/5 p-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 space-y-4">
+                <div class="text-success font-bold tracking-wider uppercase text-sm">Step 03</div>
+                <h2 class="text-3xl font-bold text-white">Track & Follow Up</h2>
+                <p class="text-gray-400 leading-relaxed">
+                    Check the Analytics tab to see your stats. If an application sits in "Applied" for more than 7 days, the Reminders tab will generate a follow-up email draft for you.
+                </p>
+            </div>
+            <div class="flex-1 bg-[#1E293B] p-8 rounded-2xl border border-white/10 aspect-video flex items-center justify-center">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-white mb-2">12</div>
+                    <div class="text-sm text-gray-500">Pending Follow-ups</div>
+                    <button class="mt-4 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-primary hover:text-white hover:bg-primary transition-colors">
+                        Draft Email
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
 </Layout>

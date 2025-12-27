@@ -1,93 +1,86 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const title = "Privacy Policy";
 ---
 
-<Layout title="Privacy Policy">
-	<main class="max-w-3xl mx-auto px-6 py-20 text-gray-300 leading-relaxed">
-		<div class="mb-12 border-b border-white/10 pb-8">
-			<h1 class="text-4xl font-extrabold text-white mb-4">Privacy Policy</h1>
-			<p class="text-primary font-medium">Last Updated: November 26, 2025</p>
+<Layout title={title}>
+	<main class="max-w-4xl mx-auto px-6 py-24 text-gray-300 leading-relaxed">
+		
+        <div class="mb-16 border-b border-white/10 pb-8">
+            <div class="inline-block p-3 rounded-xl bg-success/10 text-success mb-6">
+                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            </div>
+			<h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Privacy Policy</h1>
+			<p class="text-gray-500">Last Updated: November 26, 2025</p>
 		</div>
 
-		<div class="space-y-12">
-			<section>
-				<p class="text-lg">
-					AppliTrack is a browser extension designed to help users organize and track their job search. 
-					We respect your privacy and are committed to protecting your personal data.
+		<div class="space-y-16">
+            
+            <section>
+				<p class="text-xl text-gray-200 font-light leading-8">
+					AppliTrack is designed with a simple philosophy: <strong class="text-white">Your data is yours.</strong> We do not operate servers to store your application history. Everything happens on your device.
 				</p>
 			</section>
 
-			<section>
-				<h2 class="text-2xl font-bold text-white mb-4">1. Data Collection</h2>
+            <section>
+				<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="text-primary">01.</span> Data Collection
+                </h2>
 				<p class="mb-4">
-					AppliTrack accesses and collects data only when you explicitly interact with the extension 
-					(e.g., by clicking "Apply", using "Save" features, or entering information manually):
+					We collect data only when you explicitly interact with the extension (e.g., clicking an "Apply" button we detect). This includes:
 				</p>
-				<ul class="list-disc pl-6 space-y-2 marker:text-primary">
-					<li><strong class="text-white">Job Details:</strong> Job title, company name, description, URL, and visible job board info.</li>
-					<li><strong class="text-white">User Input:</strong> Notes, status (applied, interview, offer), and interview details.</li>
-					<li><strong class="text-white">Metadata:</strong> Dates, salaries, and locations found on the page.</li>
-				</ul>
+				<div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-card p-5 rounded-xl border border-white/5">
+                        <strong class="text-white block mb-1">Job Metadata</strong>
+                        <span class="text-sm">Role, Company, Description, URL.</span>
+                    </div>
+                    <div class="bg-card p-5 rounded-xl border border-white/5">
+                        <strong class="text-white block mb-1">User Input</strong>
+                        <span class="text-sm">Notes, Status changes, Interview dates.</span>
+                    </div>
+                </div>
 			</section>
 
-			<section>
-				<h2 class="text-2xl font-bold text-white mb-4">2. Data Storage</h2>
-				<div class="p-4 bg-primary/10 border border-primary/20 rounded-xl mb-6">
-					<strong class="text-white block mb-2">All data is stored locally on your device.</strong>
-					We use the browser's <code>chrome.storage.local</code> API.
+            <section>
+				<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="text-primary">02.</span> Data Storage
+                </h2>
+				<div class="p-6 bg-gradient-to-r from-primary/10 to-transparent border-l-4 border-primary rounded-r-xl mb-6">
+					<h3 class="text-white font-bold text-lg mb-2">Local Environment Only</h3>
+					<p class="text-sm">We utilize the <code>chrome.storage.local</code> API. Your data never leaves your browser instance.</p>
 				</div>
-				<p>Your data:</p>
-				<ul class="list-disc pl-6 mt-2 space-y-1 marker:text-primary">
-					<li>Never leaves your browser.</li>
-					<li>Is not transmitted to any external server or cloud service.</li>
-					<li>Is not shared with analytics platforms.</li>
-				</ul>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-gray-400"><div class="w-1.5 h-1.5 bg-success rounded-full"></div> No external databases</li>
+                    <li class="flex items-center gap-3 text-gray-400"><div class="w-1.5 h-1.5 bg-success rounded-full"></div> No analytics trackers</li>
+                    <li class="flex items-center gap-3 text-gray-400"><div class="w-1.5 h-1.5 bg-success rounded-full"></div> No third-party data sharing</li>
+                </ul>
 			</section>
 
-			<section>
-				<h2 class="text-2xl font-bold text-white mb-4">3. Data Usage</h2>
-				<p>The collected data is used solely for:</p>
-				<ul class="list-disc pl-6 mt-2 space-y-2 marker:text-primary">
-					<li>Displaying your application history in the dashboard.</li>
-					<li>Generating personal analytics (e.g., "Jobs Applied vs. Offered").</li>
-					<li>Creating local calendar events (.ics files) at your request.</li>
-					<li>Providing local reminders for follow-ups.</li>
-				</ul>
-			</section>
-
-			<section>
-				<h2 class="text-2xl font-bold text-white mb-4">4. Permissions Used</h2>
-				<div class="grid md:grid-cols-3 gap-4">
-					<div class="bg-card p-4 rounded-lg border border-white/5">
-						<code class="text-secondary font-bold block mb-1">activeTab</code>
-						<span class="text-xs text-gray-400">To access content on job board websites.</span>
+            <section>
+				<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="text-primary">03.</span> Permissions Explained
+                </h2>
+				<div class="grid md:grid-cols-3 gap-6">
+					<div class="bg-[#1E293B] p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+						<code class="text-secondary font-bold text-lg block mb-2">activeTab</code>
+						<p class="text-xs text-gray-400 leading-relaxed">Required to detect job details on the specific tab you are currently viewing.</p>
 					</div>
-					<div class="bg-card p-4 rounded-lg border border-white/5">
-						<code class="text-secondary font-bold block mb-1">scripting</code>
-						<span class="text-xs text-gray-400">To extract job info from the page.</span>
+					<div class="bg-[#1E293B] p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+						<code class="text-secondary font-bold text-lg block mb-2">scripting</code>
+						<p class="text-xs text-gray-400 leading-relaxed">Allows the extension to "read" the job title and company name from the page DOM.</p>
 					</div>
-					<div class="bg-card p-4 rounded-lg border border-white/5">
-						<code class="text-secondary font-bold block mb-1">storage</code>
-						<span class="text-xs text-gray-400">To save your data locally.</span>
+					<div class="bg-[#1E293B] p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+						<code class="text-secondary font-bold text-lg block mb-2">storage</code>
+						<p class="text-xs text-gray-400 leading-relaxed">Necessary to save your application history to your browser's local hard drive.</p>
 					</div>
 				</div>
 			</section>
 
-			<section>
-				<h2 class="text-2xl font-bold text-white mb-4">5. User Rights</h2>
-				<p class="mb-4">Since data is stored locally, you have complete control:</p>
-				<ul class="list-disc pl-6 space-y-2 marker:text-primary">
-					<li><strong>Access:</strong> View all data via the dashboard.</li>
-					<li><strong>Export:</strong> Download your history as CSV for backup.</li>
-					<li><strong>Deletion:</strong> Delete individual jobs or uninstall to wipe everything.</li>
-				</ul>
-			</section>
-
-			<section class="border-t border-white/10 pt-8">
-				<h2 class="text-2xl font-bold text-white mb-4">Contact & Support</h2>
-				<p>
-					For privacy concerns, please open an issue on our 
-					<a href="https://github.com/vedanshu49/job_tracker_extension" class="text-primary hover:underline font-bold">GitHub Repository</a>.
+            <section class="border-t border-white/10 pt-12 mt-12">
+				<p class="text-sm text-gray-500">
+					If you have technical questions or want to audit the code yourself, please visit our 
+					<a href="https://github.com/vedanshu49/job_tracker_extension" class="text-white hover:text-primary transition-colors underline decoration-primary/50 underline-offset-4">GitHub Repository</a>.
 				</p>
 			</section>
 		</div>

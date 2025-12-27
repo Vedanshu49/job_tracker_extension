@@ -1,96 +1,95 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const title = "Download AppliTrack";
 ---
 
-<Layout title="Download Extension">
-	<main class="max-w-5xl mx-auto px-6 py-20 text-center">
-		
-		<h1 class="text-5xl font-extrabold mb-6 text-white">Get AppliTrack</h1>
-		<p class="text-xl text-gray-400 mb-16 max-w-2xl mx-auto">
-			Choose your preferred installation method below.
-		</p>
+<Layout title={title}>
+    <main class="pt-32 pb-20 max-w-6xl mx-auto px-6">
+        
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6">
+                Get <span class="text-primary">AppliTrack</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                Choose your browser below. AppliTrack is lightweight, permission-minimal, and completely free.
+            </p>
+        </div>
 
-		<div class="grid md:grid-cols-3 gap-8 mb-20">
-			
-			<a href="https://microsoftedge.microsoft.com/addons/detail/himfoknjgampgelpfenbbmcfobmllmgm" target="_blank" class="block p-8 bg-card border border-white/10 rounded-2xl hover:border-[#0078D7] hover:shadow-lg hover:shadow-[#0078D7]/20 transition-all group hover:-translate-y-2 relative overflow-hidden">
-				<div class="absolute top-0 right-0 bg-success text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-					AVAILABLE NOW
-				</div>
-				<div class="h-16 mb-6 flex items-center justify-center">
-					<img src="/edge.png" alt="Edge" class="h-14 w-14 object-contain grayscale group-hover:grayscale-0 transition-all" />
-				</div>
-				<h3 class="text-2xl font-bold text-white mb-2 group-hover:text-[#0078D7] transition-colors">Microsoft Edge</h3>
-				<p class="text-gray-400 text-sm">Download from Microsoft Edge Add-ons Store</p>
-			</a>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-primary/50 transition-all group">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <img src="/chrome.svg" alt="Chrome" class="w-8 h-8 invert brightness-0" onerror="this.src='/logo.png'" />
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Chrome</h3>
+                <p class="text-sm text-gray-500 mb-6">Version 88+</p>
+                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-primary hover:bg-primary/90 rounded-lg text-white font-bold transition-colors">
+                    Download
+                </a>
+            </div>
 
-			<a href="https://addons.mozilla.org/en-US/firefox/addon/applitrack/" target="_blank" class="block p-8 bg-card border border-white/10 rounded-2xl hover:border-[#FF7139] hover:shadow-lg hover:shadow-[#FF7139]/20 transition-all group hover:-translate-y-2 relative overflow-hidden">
-				<div class="absolute top-0 right-0 bg-success text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-					AVAILABLE NOW
-				</div>
-				<div class="h-16 mb-6 flex items-center justify-center">
-					<img src="/firefox.png" alt="Firefox" class="h-14 w-14 object-contain grayscale group-hover:grayscale-0 transition-all" />
-				</div>
-				<h3 class="text-2xl font-bold text-white mb-2 group-hover:text-[#FF7139] transition-colors">Firefox</h3>
-				<p class="text-gray-400 text-sm">Download from Mozilla Add-ons Store</p>
-			</a>
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-secondary/50 transition-all group">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <img src="/edge.png" alt="Edge" class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Edge</h3>
+                <p class="text-sm text-gray-500 mb-6">Version 88+</p>
+                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
+                    Download
+                </a>
+            </div>
 
-			<div class="block p-8 bg-card/50 border border-white/5 rounded-2xl relative overflow-hidden cursor-not-allowed opacity-70 group">
-				<div class="absolute top-0 right-0 bg-warning text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-					IN REVIEW
-				</div>
-				<div class="h-16 mb-6 flex items-center justify-center">
-					<img src="/opera.png" alt="Opera" class="h-14 w-14 object-contain grayscale" />
-				</div>
-				<h3 class="text-2xl font-bold text-white mb-2">Opera</h3>
-				<p class="text-gray-500 text-sm">Submitted to Opera Add-ons. Coming soon.</p>
-			</div>
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-[#FF7139]/50 transition-all group">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <img src="/firefox.png" alt="Firefox" class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Firefox</h3>
+                <p class="text-sm text-gray-500 mb-6">Gecko 140+</p>
+                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
+                    Download
+                </a>
+            </div>
 
-		</div>
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-red-500/50 transition-all group">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <img src="/opera.png" alt="Opera" class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Opera</h3>
+                <p class="text-sm text-gray-500 mb-6">Latest Version</p>
+                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
+                    Download
+                </a>
+            </div>
 
-		<div class="max-w-3xl mx-auto border-t border-white/10 pt-16">
-			<h2 class="text-3xl font-bold text-white mb-4">Manual Installation (ZIP)</h2>
-			<p class="text-gray-400 mb-8">
-				If you prefer to install manually or are using a different browser, you can download the package directly. 
-				<br/>
-				<span class="text-primary font-medium">Please download the version that is compatible with your device.</span>
-			</p>
+        </div>
 
-			<div class="grid md:grid-cols-2 gap-6">
-				<a href="https://drive.google.com/file/d/1UFXqjPhNM_AwWxUnP6WVfp0MrmdDIZOh/view?usp=sharing" target="_blank" class="flex items-center justify-between p-6 bg-card border border-white/10 rounded-xl hover:border-primary hover:bg-white/5 transition-all group">
-					<div class="text-left">
-						<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">Download Version 1</h3>
-						<p class="text-xs text-gray-500">Google Drive Link</p>
-					</div>
-					<span class="text-2xl group-hover:scale-110 transition-transform">📦</span>
-				</a>
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-white mb-8 text-center">Installation Guide</h2>
+            <div class="space-y-4">
+                <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">1</div>
+                    <div>
+                        <h4 class="text-white font-bold">Download the file</h4>
+                        <p class="text-gray-400 text-sm">Get the .zip file from the releases page and extract it to a folder.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">2</div>
+                    <div>
+                        <h4 class="text-white font-bold">Open Extensions Management</h4>
+                        <p class="text-gray-400 text-sm">Go to <code>chrome://extensions</code> (or edge://extensions) and enable "Developer Mode" in the top right.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">3</div>
+                    <div>
+                        <h4 class="text-white font-bold">Load Unpacked</h4>
+                        <p class="text-gray-400 text-sm">Click "Load Unpacked" and select the folder you just extracted. That's it!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-				<a href="https://drive.google.com/file/d/1eawHwtQDKOSWg5wiirZ4E60zdEWPVV_U/view?usp=sharing" target="_blank" class="flex items-center justify-between p-6 bg-card border border-white/10 rounded-xl hover:border-primary hover:bg-white/5 transition-all group">
-					<div class="text-left">
-						<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">Download Version 2</h3>
-						<p class="text-xs text-gray-500">Google Drive Link</p>
-					</div>
-					<span class="text-2xl group-hover:scale-110 transition-transform">📦</span>
-				</a>
-
-				<a href="https://drive.google.com/file/d/1TAbrcgG68wpwuwOem1wRwoh3ezAs2bYY/view?usp=drive_link" target="_blank" class="flex items-center justify-between p-6 bg-card border border-white/10 rounded-xl hover:border-primary hover:bg-white/5 transition-all group">
-					<div class="text-left">
-						<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">Download Version 3</h3>
-						<p class="text-xs text-gray-500">Google Drive Link</p>
-					</div>
-					<span class="text-2xl group-hover:scale-110 transition-transform">📦</span>
-				</a>
-			</div>
-		</div>
-
-		<div class="mt-16 p-6 bg-white/5 rounded-xl border border-white/10 inline-block max-w-2xl">
-			<h4 class="text-lg font-bold text-white mb-2">Using Chrome or Brave?</h4>
-			<p class="text-gray-400 text-sm mb-4">
-				You can install the extension via the Edge store (compatible with Chrome-based browsers) or use the ZIP files above to load it unpacked.
-			</p>
-			<a href="https://microsoftedge.microsoft.com/addons/detail/himfoknjgampgelpfenbbmcfobmllmgm" class="text-primary hover:underline font-bold">
-				Try the Edge Version →
-			</a>
-		</div>
-
-	</main>
+    </main>
 </Layout>
