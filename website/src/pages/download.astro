@@ -12,31 +12,20 @@ const title = "Download AppliTrack";
                 Get <span class="text-primary">AppliTrack</span>
             </h1>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                Choose your browser below. AppliTrack is lightweight, permission-minimal, and completely free.
+                Choose your browser below.
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             
-            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-primary/50 transition-all group">
-                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <img src="/chrome.svg" alt="Chrome" class="w-8 h-8 invert brightness-0" onerror="this.src='/logo.png'" />
-                </div>
-                <h3 class="text-xl font-bold text-white mb-2">Chrome</h3>
-                <p class="text-sm text-gray-500 mb-6">Version 88+</p>
-                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-primary hover:bg-primary/90 rounded-lg text-white font-bold transition-colors">
-                    Download
-                </a>
-            </div>
-
-            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-secondary/50 transition-all group">
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-secondary/50 transition-all group relative overflow-hidden">
                 <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <img src="/edge.png" alt="Edge" class="w-8 h-8" />
                 </div>
                 <h3 class="text-xl font-bold text-white mb-2">Edge</h3>
-                <p class="text-sm text-gray-500 mb-6">Version 88+</p>
-                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
-                    Download
+                <p class="text-sm text-gray-500 mb-6">Microsoft Store</p>
+                <a href="https://microsoftedge.microsoft.com/addons/detail/himfoknjgampgelpfenbbmcfobmllmgm" target="_blank" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
+                    Get Extension
                 </a>
             </div>
 
@@ -45,47 +34,115 @@ const title = "Download AppliTrack";
                     <img src="/firefox.png" alt="Firefox" class="w-8 h-8" />
                 </div>
                 <h3 class="text-xl font-bold text-white mb-2">Firefox</h3>
-                <p class="text-sm text-gray-500 mb-6">Gecko 140+</p>
-                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
-                    Download
+                <p class="text-sm text-gray-500 mb-6">Firefox Add-ons</p>
+                <a href="https://addons.mozilla.org/en-US/firefox/addon/applitrack/" target="_blank" class="block w-full py-3 bg-[#FF7139] hover:bg-[#FF7139]/90 rounded-lg text-white font-bold transition-colors">
+                    Get Extension
                 </a>
             </div>
 
-            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center hover:border-red-500/50 transition-all group">
-                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <img src="/opera.png" alt="Opera" class="w-8 h-8" />
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center group opacity-80">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6">
+                    <img src="/opera.png" alt="Opera" class="w-8 h-8 grayscale group-hover:grayscale-0 transition-all" />
                 </div>
                 <h3 class="text-xl font-bold text-white mb-2">Opera</h3>
-                <p class="text-sm text-gray-500 mb-6">Latest Version</p>
-                <a href="https://github.com/vedanshu49/job_tracker_extension/releases" class="block w-full py-3 bg-white/10 hover:bg-white/20 rounded-lg text-white font-bold transition-colors">
-                    Download
-                </a>
+                <p class="text-sm text-yellow-500 mb-6 flex items-center justify-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span> Under Review
+                </p>
+                <button disabled class="block w-full py-3 bg-white/5 text-gray-500 rounded-lg font-bold cursor-not-allowed">
+                    Coming Soon
+                </button>
+            </div>
+
+            <div class="bg-[#1E293B] border border-white/10 rounded-2xl p-8 text-center group opacity-80">
+                <div class="w-16 h-16 mx-auto bg-white/5 rounded-full flex items-center justify-center mb-6">
+                    <img src="/chrome.svg" alt="Chrome" class="w-8 h-8 grayscale group-hover:grayscale-0 transition-all" onerror="this.src='/logo.png'"/>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Chrome</h3>
+                <p class="text-sm text-blue-400 mb-6 flex items-center justify-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-blue-400"></span> In Development
+                </p>
+                <button disabled class="block w-full py-3 bg-white/5 text-gray-500 rounded-lg font-bold cursor-not-allowed">
+                    Coming Soon
+                </button>
             </div>
 
         </div>
 
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl font-bold text-white mb-8 text-center">Installation Guide</h2>
-            <div class="space-y-4">
-                <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
-                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">1</div>
+        <div class="text-center mb-24">
+            <div class="p-6 bg-white/5 rounded-xl border border-white/10 inline-block max-w-2xl text-left shadow-lg">
+                <div class="flex items-start gap-4">
+                    <div class="text-2xl">💡</div>
                     <div>
-                        <h4 class="text-white font-bold">Download the file</h4>
-                        <p class="text-gray-400 text-sm">Get the .zip file from the releases page and extract it to a folder.</p>
+                        <h4 class="text-lg font-bold text-white mb-2">Using Chrome or Brave?</h4>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            You can install the extension via the Edge store (which is fully compatible with Chrome-based browsers) or use the manual ZIP files below.
+                        </p>
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/himfoknjgampgelpfenbbmcfobmllmgm" target="_blank" class="text-primary hover:underline font-bold flex items-center gap-2">
+                            Try the Edge Version <span aria-hidden="true">&rarr;</span>
+                        </a>
                     </div>
                 </div>
-                <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
-                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">2</div>
-                    <div>
-                        <h4 class="text-white font-bold">Open Extensions Management</h4>
-                        <p class="text-gray-400 text-sm">Go to <code>chrome://extensions</code> (or edge://extensions) and enable "Developer Mode" in the top right.</p>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-4">Manual Installation</h2>
+                <p class="text-gray-400">For developers or users who prefer loading unpacked extensions.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+                <a href="https://drive.google.com/file/d/1UFXqjPhNM_AwWxUnP6WVfp0MrmdDIZOh/view?usp=sharing" target="_blank" class="bg-card p-6 rounded-xl border border-white/10 hover:border-primary/50 transition-all flex items-center gap-4 group">
+                    <div class="text-3xl group-hover:scale-110 transition-transform">📦</div>
+                    <div class="text-left">
+                        <div class="font-bold text-white">Mirror 1</div>
+                        <div class="text-xs text-gray-500">Google Drive</div>
                     </div>
-                </div>
-                <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
-                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">3</div>
-                    <div>
-                        <h4 class="text-white font-bold">Load Unpacked</h4>
-                        <p class="text-gray-400 text-sm">Click "Load Unpacked" and select the folder you just extracted. That's it!</p>
+                    <div class="ml-auto text-primary opacity-0 group-hover:opacity-100 transition-opacity">⬇</div>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1eawHwtQDKOSWg5wiirZ4E60zdEWPVV_U/view?usp=sharing" target="_blank" class="bg-card p-6 rounded-xl border border-white/10 hover:border-primary/50 transition-all flex items-center gap-4 group">
+                    <div class="text-3xl group-hover:scale-110 transition-transform">📦</div>
+                    <div class="text-left">
+                        <div class="font-bold text-white">Mirror 2</div>
+                        <div class="text-xs text-gray-500">Google Drive</div>
+                    </div>
+                    <div class="ml-auto text-primary opacity-0 group-hover:opacity-100 transition-opacity">⬇</div>
+                </a>
+
+                <a href="https://drive.google.com/file/d/1TAbrcgG68wpwuwOem1wRwoh3ezAs2bYY/view?usp=drive_link" target="_blank" class="bg-card p-6 rounded-xl border border-white/10 hover:border-primary/50 transition-all flex items-center gap-4 group">
+                    <div class="text-3xl group-hover:scale-110 transition-transform">📦</div>
+                    <div class="text-left">
+                        <div class="font-bold text-white">Mirror 3</div>
+                        <div class="text-xs text-gray-500">Google Drive</div>
+                    </div>
+                    <div class="ml-auto text-primary opacity-0 group-hover:opacity-100 transition-opacity">⬇</div>
+                </a>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <h3 class="text-xl font-bold text-white mb-8 text-center">How to install via ZIP</h3>
+                <div class="space-y-4">
+                    <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">1</div>
+                        <div>
+                            <h4 class="text-white font-bold">Download & Extract</h4>
+                            <p class="text-gray-400 text-sm">Download one of the ZIP files above and extract it to a folder on your computer.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">2</div>
+                        <div>
+                            <h4 class="text-white font-bold">Open Extensions Management</h4>
+                            <p class="text-gray-400 text-sm">Go to <code>chrome://extensions</code> (or edge://extensions) and enable <strong>"Developer Mode"</strong> in the top right corner.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/5">
+                        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-white shrink-0">3</div>
+                        <div>
+                            <h4 class="text-white font-bold">Load Unpacked</h4>
+                            <p class="text-gray-400 text-sm">Click "Load Unpacked" and select the folder you just extracted. AppliTrack is now installed!</p>
+                        </div>
                     </div>
                 </div>
             </div>

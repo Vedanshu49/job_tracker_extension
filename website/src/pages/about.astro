@@ -8,80 +8,100 @@ const title = "Features & Capabilities";
 	<main class="pt-32 pb-20 overflow-hidden">
 		
         <div class="text-center mb-24 max-w-4xl mx-auto px-6">
-			<h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-white">
+			<h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-white animate-fade-in-up">
 				Power tools for your <br />
 				<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
 					Career Growth
 				</span>
 			</h1>
-			<p class="text-xl text-gray-400">
+			<p class="text-xl text-gray-400 animate-fade-in-up delay-100">
 				AppliTrack isn't just a bookmark manager. It's a complete operating system for your job search.
 			</p>
 		</div>
 
         <div class="max-w-7xl mx-auto px-6 space-y-24">
 
-            <div class="relative bg-[#1E293B] border border-white/10 rounded-3xl p-8 md:p-12 overflow-hidden group">
-                <div class="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <svg class="w-64 h-64 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <div class="relative bg-[#1E293B] border border-white/10 rounded-3xl p-8 md:p-12 overflow-hidden group hover:border-primary/30 transition-all duration-500">
+                <div class="absolute top-0 right-0 p-12 opacity-5 group-hover:opacity-10 transition-opacity duration-700 transform translate-x-10 group-hover:translate-x-0">
+                    <svg class="w-80 h-80 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                 </div>
+                
                 <div class="relative z-10 md:w-2/3">
-                    <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center text-3xl mb-6">🕵️‍♂️</div>
-                    <h2 class="text-3xl font-bold text-white mb-4">Intelligent Auto-Capture</h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-2xl text-3xl mb-8 text-primary shadow-lg shadow-primary/10 group-hover:scale-110 transition-transform duration-300">
+                        🕵️‍♂️
+                    </div>
+                    <h2 class="text-3xl font-bold text-white mb-6">Intelligent Auto-Capture</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
                         Forget copying and pasting. AppliTrack's background engine detects when you apply on major platforms. It instantly captures the **Role**, **Company**, **Job URL**, and **Description** and saves them to your local database.
                     </p>
-                    <ul class="grid grid-cols-2 gap-4 text-sm font-medium text-gray-300">
-                        <li class="flex items-center gap-2"><span class="text-primary">✓</span> LinkedIn Integration</li>
-                        <li class="flex items-center gap-2"><span class="text-primary">✓</span> Indeed Support</li>
-                        <li class="flex items-center gap-2"><span class="text-primary">✓</span> Glassdoor Tracking</li>
-                        <li class="flex items-center gap-2"><span class="text-primary">✓</span> Internshala Ready</li>
-                    </ul>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+                            <img src="/linkedin.png" class="w-5 h-5 object-contain" />
+                            <span class="text-sm font-bold text-white">LinkedIn</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+                            <img src="/indeed.png" class="w-16 h-5 object-contain object-left" onerror="this.src='/logo.png'"/>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+                            <img src="/glassdoor.png" class="w-5 h-5 object-contain" onerror="this.src='/logo.png'"/>
+                            <span class="text-sm font-bold text-white">Glassdoor</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/5">
+                            <img src="/internshala.png" class="w-16 h-5 object-contain object-left" onerror="this.src='/logo.png'"/>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-card border border-white/10 rounded-3xl p-8 hover:border-secondary/50 transition-colors">
-                    <div class="w-14 h-14 bg-secondary/20 rounded-2xl flex items-center justify-center text-3xl mb-6">📋</div>
+                <div class="bg-card border border-white/10 rounded-3xl p-8 hover:border-secondary/50 transition-colors group relative overflow-hidden">
+                    <div class="w-14 h-14 bg-secondary/20 rounded-2xl flex items-center justify-center text-3xl mb-6 text-secondary group-hover:rotate-6 transition-transform">📋</div>
                     <h3 class="text-2xl font-bold text-white mb-3">Kanban Workflow</h3>
-                    <p class="text-gray-400 mb-4">
-                        Visual management for your applications. Drag cards from "Applied" to "Interviewing" to "Offer".
+                    <p class="text-gray-400 mb-8 h-12">
+                        Visual management for your applications. Drag cards from "Applied" to "Interviewing".
                     </p>
-                    <div class="bg-dark rounded-xl p-4 border border-white/5 flex gap-2 overflow-hidden opacity-80">
-                        <div class="w-1/3 h-20 bg-white/5 rounded"></div>
-                        <div class="w-1/3 h-20 bg-white/5 rounded border-l-2 border-secondary"></div>
-                        <div class="w-1/3 h-20 bg-white/5 rounded"></div>
+                    <div class="bg-dark rounded-xl p-4 border border-white/5 flex gap-3 overflow-hidden opacity-80 group-hover:opacity-100 transition-opacity">
+                        <div class="w-1/3 h-24 bg-white/5 rounded flex flex-col gap-2 p-2">
+                            <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+                            <div class="h-10 bg-[#2D3748] rounded border-l-2 border-secondary"></div>
+                        </div>
+                        <div class="w-1/3 h-24 bg-white/5 rounded flex flex-col gap-2 p-2 bg-white/10">
+                             <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+                        </div>
+                        <div class="w-1/3 h-24 bg-white/5 rounded flex flex-col gap-2 p-2">
+                             <div class="h-2 w-1/2 bg-white/10 rounded"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-card border border-white/10 rounded-3xl p-8 hover:border-accent/50 transition-colors">
-                    <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center text-3xl mb-6">📊</div>
+                <div class="bg-card border border-white/10 rounded-3xl p-8 hover:border-accent/50 transition-colors group relative overflow-hidden">
+                    <div class="w-14 h-14 bg-accent/20 rounded-2xl flex items-center justify-center text-3xl mb-6 text-accent group-hover:rotate-6 transition-transform">📊</div>
                     <h3 class="text-2xl font-bold text-white mb-3">Deep Analytics</h3>
-                    <p class="text-gray-400 mb-4">
+                    <p class="text-gray-400 mb-8 h-12">
                         Understand your conversion rates. See which platforms yield the most interviews.
                     </p>
-                    <div class="flex items-end gap-2 h-24 mt-6 px-4">
-                        <div class="w-1/4 h-[40%] bg-primary/50 rounded-t"></div>
-                        <div class="w-1/4 h-[70%] bg-accent/50 rounded-t"></div>
-                        <div class="w-1/4 h-[50%] bg-secondary/50 rounded-t"></div>
-                        <div class="w-1/4 h-[90%] bg-success/50 rounded-t"></div>
+                    <div class="flex items-end gap-3 h-24 mt-6 px-4 pb-2 border-b border-white/5">
+                        <div class="w-1/4 h-[40%] bg-primary rounded-t group-hover:h-[45%] transition-all duration-700"></div>
+                        <div class="w-1/4 h-[70%] bg-accent rounded-t group-hover:h-[75%] transition-all duration-700 delay-75"></div>
+                        <div class="w-1/4 h-[50%] bg-secondary rounded-t group-hover:h-[55%] transition-all duration-700 delay-100"></div>
+                        <div class="w-1/4 h-[90%] bg-success rounded-t group-hover:h-[95%] transition-all duration-700 delay-150"></div>
                     </div>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-card border border-white/10 rounded-2xl p-6 hover:bg-white/5 transition-colors">
-                    <div class="text-3xl mb-4">🌙</div>
+                <div class="bg-card border border-white/10 rounded-2xl p-6 hover:bg-white/5 hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-4xl mb-4">🌙</div>
                     <h3 class="text-lg font-bold text-white mb-2">Dark Mode</h3>
                     <p class="text-sm text-gray-400">Automatic theme switching that respects your system preferences.</p>
                 </div>
-                <div class="bg-card border border-white/10 rounded-2xl p-6 hover:bg-white/5 transition-colors">
-                    <div class="text-3xl mb-4">🔒</div>
+                <div class="bg-card border border-white/10 rounded-2xl p-6 hover:bg-white/5 hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-4xl mb-4">🔒</div>
                     <h3 class="text-lg font-bold text-white mb-2">Privacy Core</h3>
                     <p class="text-sm text-gray-400">Zero cloud dependency. Your data stays in your browser's local storage.</p>
                 </div>
-                <div class="bg-card border border-white/10 rounded-2xl p-6 hover:bg-white/5 transition-colors">
-                    <div class="text-3xl mb-4">🔔</div>
+                <div class="bg-card border border-white/10 rounded-2xl p-6 hover:bg-white/5 hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-4xl mb-4">🔔</div>
                     <h3 class="text-lg font-bold text-white mb-2">Smart Reminders</h3>
                     <p class="text-sm text-gray-400">Auto-flags applications older than 7 days for follow-up.</p>
                 </div>
